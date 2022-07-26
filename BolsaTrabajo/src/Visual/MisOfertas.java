@@ -18,6 +18,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Dialog.ModalExclusionType;
 
 public class MisOfertas extends JDialog {
 
@@ -32,8 +33,11 @@ public class MisOfertas extends JDialog {
 	
 
 	public MisOfertas() {
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+		setModal(true);
+		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Mis ofertas");
-		setBounds(100, 100, 699, 460);
+		setBounds(100, 100, 809, 460);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -47,7 +51,7 @@ public class MisOfertas extends JDialog {
 			panel.setLayout(null);
 			{
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(2, 2, 671, 362);
+				scrollPane.setBounds(2, 2, 771, 362);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
 				{
@@ -79,12 +83,12 @@ public class MisOfertas extends JDialog {
 			});
 			
 			btnEliminarOferta.setEnabled(false);
-			btnEliminarOferta.setBounds(553, 375, 110, 23);
+			btnEliminarOferta.setBounds(649, 375, 124, 23);
 			panel.add(btnEliminarOferta);
 			
 			JButton button = new JButton("Ver detalles");
 			button.setEnabled(false);
-			button.setBounds(433, 375, 110, 23);
+			button.setBounds(529, 375, 110, 23);
 			panel.add(button);
 		}
 		loadTable();
