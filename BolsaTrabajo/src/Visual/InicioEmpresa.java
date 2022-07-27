@@ -192,9 +192,9 @@ public class InicioEmpresa extends JFrame {
 		panel.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblPostulaciones = new JLabel("Postulaciones mas recientes");
+		JLabel lblPostulaciones = new JLabel("Mejores postulados para las ofertas");
 		lblPostulaciones.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPostulaciones.setBounds(125, 11, 186, 14);
+		lblPostulaciones.setBounds(79, 11, 277, 14);
 		panel_4.add(lblPostulaciones);
 		
 		

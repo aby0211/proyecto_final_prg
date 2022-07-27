@@ -1,22 +1,26 @@
 package logico;
 
 import java.sql.Date;
+import java.util.ArrayList;
 
-public abstract class Solicitud {
-	protected String codigo;
-	protected String ofertaLaboral;
-	protected String categoriaLaboral;
-	protected String provincia;
-	protected Date fechaVencimiento;
-	protected int cantVacantes;
-	protected String jornada;
-	protected float salario;
-	protected String tipoContrato;
-	protected String periodoCobro;
-	protected CentroEmpleador miCentro;
+public class Solicitud {
+	private String codigo;
+	private String ofertaLaboral;
+	private String categoriaLaboral;
+	private String provincia;
+	private Date fechaVencimiento;
+	private int cantVacantes;
+	private String jornada;
+	private float salario;
+	private String tipoContrato;
+	private String periodoCobro;
+	private CentroEmpleador miCentro;
+	private String estado;
+	private ArrayList<Candidato> misCandidatos;
+	
 	public Solicitud(String codigo, String ofertaLaboral, String categoriaLaboral, String provincia,
 			Date fechaVencimiento, int cantVacantes, String jornada, float salario, String tipoContrato,
-			String periodoCobro, CentroEmpleador miCentro) {
+			String periodoCobro, CentroEmpleador miCentro, String estado) {
 		super();
 		this.codigo = codigo;
 		this.ofertaLaboral = ofertaLaboral;
@@ -29,6 +33,9 @@ public abstract class Solicitud {
 		this.tipoContrato = tipoContrato;
 		this.periodoCobro = periodoCobro;
 		this.miCentro = miCentro;
+		this.misCandidatos=new ArrayList<Candidato>();
+		this.estado=estado;
+		
 	}
 	public String getCodigo() {
 		return codigo;
@@ -62,6 +69,15 @@ public abstract class Solicitud {
 	}
 	public CentroEmpleador getMiCentro() {
 		return miCentro;
+	}
+	public ArrayList<Candidato> getMisCandidatos() {
+		return misCandidatos;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public void setEstado(String estado) {
+		this.estado = estado;
 	}
 	
 	
