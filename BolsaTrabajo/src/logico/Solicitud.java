@@ -16,7 +16,7 @@ public abstract class Solicitud {
 	protected CentroEmpleador miCentro;
 	public Solicitud(String codigo, String ofertaLaboral, String categoriaLaboral, String provincia,
 			Date fechaVencimiento, int cantVacantes, String jornada, float salario, String tipoContrato,
-			String periodoCobro) {
+			String periodoCobro, CentroEmpleador miCentro) {
 		super();
 		this.codigo = codigo;
 		this.ofertaLaboral = ofertaLaboral;

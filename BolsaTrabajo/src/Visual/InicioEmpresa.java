@@ -66,10 +66,6 @@ public class InicioEmpresa extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 		
-		JMenuItem mntmMiEmpresa = new JMenuItem("Mi empresa");
-		mntmMiEmpresa.setEnabled(false);
-		menuBar.add(mntmMiEmpresa);
-		
 		JMenuItem mntmMisOfertas = new JMenuItem("Mis ofertas");
 		mntmMisOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -78,6 +74,12 @@ public class InicioEmpresa extends JFrame {
 				list.setVisible(true);	
 			}
 		});
+		
+		JMenu mnMiEmpresa = new JMenu("Mi Empresa");
+		menuBar.add(mnMiEmpresa);
+		
+		JMenuItem mntmCerrarSesion = new JMenuItem("Cerrar Sesi\u00F3n");
+		mnMiEmpresa.add(mntmCerrarSesion);
 		menuBar.add(mntmMisOfertas);
 		
 		JMenuItem mntmCrearOferta = new JMenuItem("Crear oferta de trabajo");
@@ -220,5 +222,4 @@ public class InicioEmpresa extends JFrame {
 		//}
 
 	}
-	
 }
