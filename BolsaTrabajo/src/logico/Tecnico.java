@@ -5,21 +5,24 @@ import java.sql.Date;
 public class Tecnico extends Candidato {
 
 	private String areaTecnica;
+	private String centroEducativo;
 
-	public Tecnico(String codigo, String nombre, char sexo, Date fechaNacimiento, String password, String email,
+	public Tecnico(String codigo, String nombre, String sexo, String password, String email,
 			String provincia, boolean vehiculoPropio, String nivelEstudio, String centroEducativo, int annosExperiencia,
-			String estadoCivil, String telefono, String rangoSalarioMinimo, boolean viajarDisp, String areaTecnica) {
-		super(codigo, nombre, sexo, fechaNacimiento, password, email, provincia, vehiculoPropio, nivelEstudio,
-				centroEducativo, annosExperiencia, estadoCivil, telefono, rangoSalarioMinimo, viajarDisp);
+			 String telefono, int rangoSalarioMinimo, boolean viajarDisp, String areaTecnica) {
+		super(codigo, nombre, sexo, password, email, provincia, vehiculoPropio, nivelEstudio,
+			 annosExperiencia, telefono, rangoSalarioMinimo, viajarDisp);
 		this.areaTecnica=areaTecnica;
+		this.centroEducativo=centroEducativo;
 	}
 
 	public String getAreaTecnica() {
 		return areaTecnica;
 	}
 
-	public void setAreaTecnica(String areaTecnica) {
-		this.areaTecnica = areaTecnica;
+	public String getCentroEducativo() {
+		return centroEducativo;
 	}
+
 
 }

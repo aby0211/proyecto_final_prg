@@ -25,6 +25,9 @@ import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
+
+import logico.CentroEmpleador;
+
 import javax.swing.JTextField;
 
 public class InicioEmpresa extends JFrame {
@@ -42,23 +45,12 @@ public class InicioEmpresa extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					InicioEmpresa frame = new InicioEmpresa();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
 	 */
-	public InicioEmpresa() {
+	public InicioEmpresa(CentroEmpleador centro) {
+	
 		setTitle("Bolsa de trabajo para empresas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 737, 504);
@@ -85,7 +77,7 @@ public class InicioEmpresa extends JFrame {
 		JMenuItem mntmCrearOferta = new JMenuItem("Crear oferta de trabajo");
 		mntmCrearOferta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrearOferta list2 = new CrearOferta();
+				CrearOferta list2 = new CrearOferta(centro);
 				list2.setVisible(true);
 			}
 		});
@@ -149,24 +141,26 @@ public class InicioEmpresa extends JFrame {
 		JButton btnEditarBoton = new JButton("Editar perfil");
 		btnEditarBoton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditarPerfilEmpresa list3 = new EditarPerfilEmpresa();
+				EditarPerfilEmpresa list3 = new EditarPerfilEmpresa(centro);
 				list3.setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 				list3.setVisible(true);
 			}
 		});
 		btnEditarBoton.setBounds(68, 373, 109, 25);
 		panel_1.add(btnEditarBoton);
-		JButton btnVerResumen = new JButton("Ver resumen de postulacion");
+		JButton btnVerResumen = new JButton("Ver detalles de candidato");
 		JPanel panel_2 = new JPanel();
 		panel_2.setBounds(265, 63, 436, 305);
 		panel.add(panel_2);
 		panel_2.setLayout(new BorderLayout(0, 0));
 		
 		JScrollPane scrollPane = new JScrollPane();
+		
+		
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		panel_2.add(scrollPane);
 		{
-			String headers[] = {"Oferta laboral", "Nombre del candidato"};
+			String headers[] = {"Oferta laboral", "Codigo del candidato", "Nombre del candidato"};
 			model = new DefaultTableModel();
 			model.setColumnIdentifiers(headers);
 			table = new JTable();
@@ -178,7 +172,7 @@ public class InicioEmpresa extends JFrame {
 					row = table.getSelectedRow();
 					if(row>-1){
 						btnVerResumen.setEnabled(true);
-						//selected = Habana.getInstance().getMisFacturas().get(Habana.getInstance().buscarFacturaForIndex(table.getValueAt(row, 0).toString()));
+						//selected = Habana.getInstance().getMisFacturas().get(Habana.getInstance().buscarFacturaForIndex(table.getValueAt(row, 1).toString()));
 					}
 				}
 			});
@@ -192,9 +186,9 @@ public class InicioEmpresa extends JFrame {
 		panel.add(panel_4);
 		panel_4.setLayout(null);
 		
-		JLabel lblPostulaciones = new JLabel("Mejores postulados para las ofertas");
+		JLabel lblPostulaciones = new JLabel("Mejores candidatos para las ofertas");
 		lblPostulaciones.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPostulaciones.setBounds(79, 11, 277, 14);
+		lblPostulaciones.setBounds(102, 11, 277, 14);
 		panel_4.add(lblPostulaciones);
 		
 		
@@ -204,16 +198,30 @@ public class InicioEmpresa extends JFrame {
 		panel.add(btnVerResumen);
 		
 		JButton btnRefrescar = new JButton("Refrescar");
+		btnRefrescar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				txtNombre.setText(centro.getNombre());
+				txtCategoriaLab.setText(centro.getCategoriaLaboral());
+				txtProvincia.setText(centro.getProvincia());
+				txtRNC.setText(centro.getRnc());
+			}
+		});
 		btnRefrescar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnRefrescar.setBounds(482, 379, 219, 41);
 		panel.add(btnRefrescar);
+		
+		txtNombre.setText(centro.getNombre());
+		txtCategoriaLab.setText(centro.getCategoriaLaboral());
+		txtProvincia.setText(centro.getProvincia());
+		txtRNC.setText(centro.getRnc());
 		
 		loadTable(); 
 	}
 	
 	private void loadTable() {
 		model.setRowCount(0);
-		model.setColumnCount(2);
+		model.setColumnCount(3);
 		row = new Object[model.getColumnCount()];
 		//for (int i = 0; i < Habana.getInstance().getMisFacturas().size(); i++) {
 			//row[0] = Habana.getInstance().getMisFacturas().get(i).getCodigo();
@@ -222,4 +230,5 @@ public class InicioEmpresa extends JFrame {
 		//}
 
 	}
+
 }

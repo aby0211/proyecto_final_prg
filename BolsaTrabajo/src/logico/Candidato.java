@@ -7,45 +7,39 @@ public abstract class Candidato {
 
 	protected String codigo;
 	protected String nombre;
-	protected char sexo;
-	protected Date fechaNacimiento;
+	protected String sexo;
 	protected String password;
 	protected String email;
 	protected String provincia;
 	protected boolean vehiculoPropio;
 	protected String nivelEstudio;
-	protected String centroEducativo;
 	protected int annosExperiencia;
-	protected String estadoCivil;
 	protected String telefono;
-	protected String rangoSalarioMinimo;
+	protected float rangoSalarioMinimo;
 	protected boolean ViajarDisp;
 	protected ArrayList<Solicitud> misSolicitudes;
-	public Candidato(String codigo, String nombre, char sexo, Date fechaNacimiento, String password, String email,
-			String provincia, boolean vehiculoPropio, String nivelEstudio, String centroEducativo, int annosExperiencia ,
-			String estadoCivil, String telefono, String rangoSalarioMinimo, boolean viajarDisp) {
+	public Candidato(String codigo, String nombre, String sexo, String password, String email,
+			String provincia, boolean vehiculoPropio, String nivelEstudio, int annosExperiencia, String telefono, int rangoSalarioMinimo, boolean viajarDisp) {
 		super();
 		this.codigo = codigo;
 		this.nombre = nombre;
 		this.sexo = sexo;
-		this.fechaNacimiento = fechaNacimiento;
 		this.password = password;
 		this.email = email;
 		this.provincia = provincia;
 		this.vehiculoPropio = vehiculoPropio;
 		this.nivelEstudio = nivelEstudio;
-		this.centroEducativo = centroEducativo;
+
 		this.annosExperiencia= annosExperiencia;
-		this.estadoCivil = estadoCivil;
 		this.telefono = telefono;
 		this.rangoSalarioMinimo = rangoSalarioMinimo;
 		ViajarDisp = viajarDisp;
 		this.misSolicitudes = new ArrayList<Solicitud>();
 	}
-	public char getSexo() {
+	public String getSexo() {
 		return sexo;
 	}
-	public void setSexo(char sexo) {
+	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 	public String getPassword() {
@@ -72,12 +66,6 @@ public abstract class Candidato {
 	public void setNivelEstudio(String nivelEstudio) {
 		this.nivelEstudio = nivelEstudio;
 	}
-	public String getCentroEducativo() {
-		return centroEducativo;
-	}
-	public void setCentroEducativo(String centroEducativo) {
-		this.centroEducativo = centroEducativo;
-	}
 
 	public int getAnnosExperiencia() {
 		return annosExperiencia;
@@ -85,16 +73,11 @@ public abstract class Candidato {
 	public void setAnnosExperiencia(int annosExperiencia) {
 		this.annosExperiencia = annosExperiencia;
 	}
-	public String getEstadoCivil() {
-		return estadoCivil;
-	}
-	public void setEstadoCivil(String estadoCivil) {
-		this.estadoCivil = estadoCivil;
-	}
-	public String getRangoSalarioMinimo() {
+	
+	public float getRangoSalarioMinimo() {
 		return rangoSalarioMinimo;
 	}
-	public void setRangoSalarioMinimo(String rangoSalarioMinimo) {
+	public void setRangoSalarioMinimo(int rangoSalarioMinimo) {
 		this.rangoSalarioMinimo = rangoSalarioMinimo;
 	}
 	public String getCodigo() {
@@ -102,9 +85,6 @@ public abstract class Candidato {
 	}
 	public String getNombre() {
 		return nombre;
-	}
-	public Date getFechaNacimiento() {
-		return fechaNacimiento;
 	}
 	public boolean isVehiculoPropio() {
 		return vehiculoPropio;

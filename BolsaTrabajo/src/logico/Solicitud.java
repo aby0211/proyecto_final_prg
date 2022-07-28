@@ -1,6 +1,7 @@
 package logico;
 
-import java.sql.Date;
+import java.util.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Solicitud {
@@ -11,7 +12,7 @@ public class Solicitud {
 	private Date fechaVencimiento;
 	private int cantVacantes;
 	private String jornada;
-	private float salario;
+	private int salario;
 	private String tipoContrato;
 	private String periodoCobro;
 	private CentroEmpleador miCentro;
@@ -19,7 +20,7 @@ public class Solicitud {
 	private ArrayList<Candidato> misCandidatos;
 	
 	public Solicitud(String codigo, String ofertaLaboral, String categoriaLaboral, String provincia,
-			Date fechaVencimiento, int cantVacantes, String jornada, float salario, String tipoContrato,
+			Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato,
 			String periodoCobro, CentroEmpleador miCentro, String estado) {
 		super();
 		this.codigo = codigo;
@@ -58,7 +59,7 @@ public class Solicitud {
 	public String getJornada() {
 		return jornada;
 	}
-	public float getSalario() {
+	public int getSalario() {
 		return salario;
 	}
 	public String getTipoContrato() {

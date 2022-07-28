@@ -1,21 +1,22 @@
 package logico;
 
-import java.sql.Date;
 
 public class Universitario extends Candidato {
 	private String carrera;
-	public Universitario(String codigo, String nombre, char sexo, Date fechaNacimiento, String password, String email,
-			String provincia, boolean vehiculoPropio, String nivelEstudio, String centroEducativo, String carrera, int annosExperiencia,
-			String estadoCivil, String telefono, String rangoSalarioMinimo, boolean viajarDisp) {
-		super(codigo, nombre, sexo, fechaNacimiento, password, email, provincia, vehiculoPropio, nivelEstudio,
-				centroEducativo, annosExperiencia, estadoCivil, telefono, rangoSalarioMinimo, viajarDisp);
+	private String CentroEducativo;
+	public Universitario(String codigo, String nombre, String sexo, String password, String email,
+			String provincia, boolean vehiculoPropio, String carrera, String nivelEstudio,String CentroEducativo, int annosExperiencia,
+	 String telefono, int rangoSalarioMinimo, boolean viajarDisp) {
+		super(codigo, nombre, sexo, password, email, provincia, vehiculoPropio, nivelEstudio,
+				 annosExperiencia,  telefono, rangoSalarioMinimo, viajarDisp);
 		this.carrera=carrera;
+		this.CentroEducativo=CentroEducativo;
 	}
 	public String getCarrera() {
 		return carrera;
 	}
-	public void setCarrera(String carrera) {
-		this.carrera = carrera;
+	public String getCentroEducativo() {
+		return CentroEducativo;
 	}
 
 }

@@ -37,7 +37,7 @@ public class MisOfertas extends JDialog {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Mis ofertas");
-		setBounds(100, 100, 809, 460);
+		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -51,11 +51,11 @@ public class MisOfertas extends JDialog {
 			panel.setLayout(null);
 			{
 				JScrollPane scrollPane = new JScrollPane();
-				scrollPane.setBounds(2, 2, 771, 362);
+				scrollPane.setBounds(7, 11, 771, 362);
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
 				{
-					String headers[] = {"Oferta laboral", "Estado de postulacion", "Vacantes disponibles", "Cantidad de postulaciones", "Fecha de vencimiento"};
+					String headers[] = {"Oferta laboral", "Estado de oferta", "Vacantes disponibles", "Cantidad de postulaciones", "Fecha de vencimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -83,12 +83,12 @@ public class MisOfertas extends JDialog {
 			});
 			
 			btnEliminarOferta.setEnabled(false);
-			btnEliminarOferta.setBounds(649, 375, 124, 23);
+			btnEliminarOferta.setBounds(651, 385, 124, 23);
 			panel.add(btnEliminarOferta);
 			
 			JButton button = new JButton("Ver detalles");
 			button.setEnabled(false);
-			button.setBounds(529, 375, 110, 23);
+			button.setBounds(531, 385, 110, 23);
 			panel.add(button);
 		}
 		loadTable();

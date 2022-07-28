@@ -166,7 +166,7 @@ public class ResumenPostulacion extends JDialog {
 				}
 			}
 			{
-				JButton btnNewButton = new JButton("Contratar");
+				JButton btnNewButton = new JButton("Finalizar contrataci\u00F3n");
 				btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				btnNewButton.setBounds(354, 389, 167, 36);
 				panel.add(btnNewButton);

@@ -10,12 +10,19 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableModel;
+
 import java.awt.Font;
 import java.awt.Dialog.ModalExclusionType;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class DetallesOferta extends JDialog {
 
@@ -30,6 +37,8 @@ public class DetallesOferta extends JDialog {
 	private JTextField textField_7;
 	private JTextField textField_8;
 	private JTable table;
+	private DefaultTableModel model;
+	private Object row[];
 
 	/**
 	 * Launch the application.
@@ -49,9 +58,8 @@ public class DetallesOferta extends JDialog {
 	 */
 	public DetallesOferta() {
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		setResizable(false);
 		setModal(true);
-		setBounds(100, 100, 780, 533);
+		setBounds(100, 100, 780, 407);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -82,7 +90,7 @@ public class DetallesOferta extends JDialog {
 			panel.add(label_4);
 			
 			JLabel label_5 = new JLabel("Cantidad de vacantes:");
-			label_5.setBounds(506, 41, 122, 14);
+			label_5.setBounds(506, 41, 148, 14);
 			panel.add(label_5);
 			
 			textField = new JTextField();
@@ -156,28 +164,63 @@ public class DetallesOferta extends JDialog {
 			panel_1.setBounds(10, 211, 734, 32);
 			panel.add(panel_1);
 			
-			JLabel label_9 = new JLabel("Listado de candidatos");
-			label_9.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			panel_1.add(label_9);
+			JLabel lblCandidatoQueMejor = new JLabel("Candidato que mejor se adapta a la oferta");
+			lblCandidatoQueMejor.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			panel_1.add(lblCandidatoQueMejor);
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBounds(10, 254, 734, 178);
+			panel_2.setBounds(10, 254, 734, 49);
 			panel.add(panel_2);
 			panel_2.setLayout(new BorderLayout(0, 0));
-			
+			JButton btnVerCandidato = new JButton("Ver candidato");
+			btnVerCandidato.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			panel_2.add(scrollPane, BorderLayout.CENTER);
+			{
+				String headers[] = {"Oferta laboral","Codigo del candidato", "Nombre del candidato"};
+				model = new DefaultTableModel();
+				model.setColumnIdentifiers(headers);
+				table = new JTable();
+				table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+				table.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						int row = -1;
+						row = table.getSelectedRow();
+						if(row>-1){
+							btnVerCandidato.setEnabled(true);
+							//selected = Habana.getInstance().getMisFacturas().get(Habana.getInstance().buscarFacturaForIndex(table.getValueAt(row, 1).toString()));
+						}
+					}
+				});
+				table.setModel(model);
+				scrollPane.setViewportView(table);
+			}
 			
-			table = new JTable();
-			table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-			scrollPane.setViewportView(table);
-			
-			JButton button = new JButton("Ver candidato");
-			button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			button.setEnabled(false);
-			button.setBounds(565, 440, 179, 33);
-			panel.add(button);
+			btnVerCandidato.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			btnVerCandidato.setEnabled(false);
+			btnVerCandidato.setBounds(565, 314, 179, 33);
+			panel.add(btnVerCandidato);
+			loadTable();
 		}
+		
+		
+	}
+	
+	private void loadTable() {
+		model.setRowCount(0);
+		model.setColumnCount(3);
+		row = new Object[model.getColumnCount()];
+		//for (int i = 0; i < Habana.getInstance().getMisFacturas().size(); i++) {
+			//row[0] = Habana.getInstance().getMisFacturas().get(i).getCodigo();
+			//row[1] = String.valueOf(Habana.getInstance().getMisFacturas().get(i).precioTotalFactura());
+			//model.addRow(row);
+		//}
+
 	}
 }
