@@ -38,7 +38,11 @@ public class CrearOferta extends JDialog {
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
 	private JTextField txtOfertaLaboral;
-
+	private JComboBox cbxCategoriaLab;
+	private JTextField OfertaLaboral;
+	private JSpinner spnVacantes;
+	private JSpinner spnSalario;
+	
 	public CrearOferta(CentroEmpleador centro) {
 		setBounds(100, 100, 532, 410);
 		getContentPane().setLayout(new BorderLayout());
