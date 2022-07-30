@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 public class Login extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtEmail;
+	private JTextField txtUsername;
 	private JTextField txtPassword;
 
 	/**
@@ -43,54 +43,57 @@ public class Login extends JDialog {
 	 */
 	public Login() {
 		setTitle("Bolsa de trabajo");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 663, 613);
 		getContentPane().setLayout(new BorderLayout());
+		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		setLocationRelativeTo(null);
 		{
 			JPanel panel = new JPanel();
+			panel.setBackground(Color.WHITE);
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
-				JLabel label = new JLabel("Ingresar correo electronico:");
-				label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				label.setBounds(123, 11, 177, 14);
-				panel.add(label);
+				JLabel txtUsername = new JLabel("Usuario");
+				txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 26));
+				txtUsername.setBounds(42, 112, 219, 31);
+				panel.add(txtUsername);
 			}
 			{
-				txtEmail = new JTextField();
-				txtEmail.setColumns(10);
-				txtEmail.setBounds(78, 36, 268, 25);
-				panel.add(txtEmail);
+				txtUsername = new JTextField();
+				txtUsername.setColumns(10);
+				txtUsername.setBounds(42, 154, 219, 25);
+				panel.add(txtUsername);
 			}
 			{
 				txtPassword = new JTextField();
 				txtPassword.setColumns(10);
-				txtPassword.setBounds(78, 108, 268, 25);
+				txtPassword.setBounds(42, 280, 219, 25);
 				panel.add(txtPassword);
 			}
 			{
-				JLabel label = new JLabel("Ingresar contrase\u00F1a:");
-				label.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				label.setBounds(144, 83, 135, 14);
-				panel.add(label);
+				JLabel lblContrasea = new JLabel("Contrase\u00F1a");
+				lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 26));
+				lblContrasea.setBounds(42, 238, 219, 31);
+				panel.add(lblContrasea);
 			}
-			JLabel lblIncorrecto = new JLabel("Correo o contrase\u00F1a incorrectos");
+			JLabel lblIncorrecto = new JLabel("Usuario o contrase\u00F1a incorrectos");
+			lblIncorrecto.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			{
 				lblIncorrecto.setVisible(false);
 				lblIncorrecto.setForeground(Color.RED);
-				lblIncorrecto.setBounds(115, 144, 194, 14);
+				lblIncorrecto.setBounds(52, 382, 271, 14);
 				panel.add(lblIncorrecto);
 			}
 			{
 				JButton button = new JButton("Iniciar sesi\u00F3n");
 				button.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						if(BolsaDeTrabajo.getInstance().verificarLogin(txtEmail.getText(), txtPassword.getText())) {
+						if(BolsaDeTrabajo.getInstance().verificarLogin(txtUsername.getText(), txtPassword.getText())) {
 							dispose();
-							InicioEmpresa list = new InicioEmpresa(BolsaDeTrabajo.getInstance().buscarEmpresaByEmail(txtEmail.getText()));
+							Principal list = new Principal(BolsaDeTrabajo.getInstance().buscarUsuarioByUser(txtUsername.getText()));
 							list.setVisible(true);
 						}else {
 							lblIncorrecto.setVisible(true);
@@ -98,24 +101,19 @@ public class Login extends JDialog {
 					}
 				});
 				button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				button.setBounds(142, 169, 139, 31);
+				button.setBounds(81, 340, 139, 31);
 				panel.add(button);
 			}
-			{
-				JButton button = new JButton("REGISTRARME");
-				button.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						dispose();
-						Registrar list = new Registrar();
-						list.setVisible(true);
-						
-					}
-				});
-				button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				button.setBounds(140, 211, 143, 31);
-				panel.add(button);
-			}
+			
+			JPanel panel_1 = new JPanel();
+			panel_1.setBackground(Color.WHITE);
+			panel_1.setBounds(304, 11, 323, 542);
+			panel.add(panel_1);
+			
+			JLabel lblIniciarSesin = new JLabel("Iniciar Sesi\u00F3n");
+			lblIniciarSesin.setFont(new Font("Tahoma", Font.PLAIN, 30));
+			lblIniciarSesin.setBounds(10, 30, 219, 31);
+			panel.add(lblIniciarSesin);
 		}
 	}
-
 }

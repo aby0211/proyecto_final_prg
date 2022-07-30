@@ -1,22 +1,25 @@
 package logico;
 
-import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Date;
 
-public class Obrero extends Candidato {
-	private String oficio;
-	public Obrero(String codigo, String nombre, String sexo, String password, String email,
-			String provincia, boolean vehiculoPropio, String nivelEstudio, String oficio, int annosExperiencia,
-		 String telefono, int rangoSalarioMinimo, boolean viajarDisp) {
-		super(codigo, nombre, sexo, password, email, provincia, vehiculoPropio, nivelEstudio,
-				 annosExperiencia, telefono, rangoSalarioMinimo, viajarDisp);
-		this.oficio=oficio;
+public class Obrero extends Postulacion {
+	
+	public Obrero(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento, int salarioMinimo,
+			int annosExp,String estado) {
+		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp,estado);
+		this.oficio=new ArrayList<ItemOficio>();
 	}
-	public String getOficio() {
+
+	private ArrayList<ItemOficio> oficio;
+
+	public ArrayList<ItemOficio> getOficio() {
 		return oficio;
 	}
-	public void setOficio(String oficio) {
-		this.oficio = oficio;
-	}
+	
+	
+
+	
 	
 
 }

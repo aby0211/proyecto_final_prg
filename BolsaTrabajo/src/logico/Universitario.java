@@ -1,22 +1,25 @@
 package logico;
 
+import java.util.Date;
 
-public class Universitario extends Candidato {
+public class Universitario extends Postulacion {
+	
 	private String carrera;
-	private String CentroEducativo;
-	public Universitario(String codigo, String nombre, String sexo, String password, String email,
-			String provincia, boolean vehiculoPropio, String carrera, String nivelEstudio,String CentroEducativo, int annosExperiencia,
-	 String telefono, int rangoSalarioMinimo, boolean viajarDisp) {
-		super(codigo, nombre, sexo, password, email, provincia, vehiculoPropio, nivelEstudio,
-				 annosExperiencia,  telefono, rangoSalarioMinimo, viajarDisp);
+	private String centroEducativo;
+	
+	public Universitario(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento,
+			int salarioMinimo, int annosExp, String carrera, String centroEducativo, String estado) {
+		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp, estado);
 		this.carrera=carrera;
-		this.CentroEducativo=CentroEducativo;
+		this.centroEducativo=centroEducativo;
 	}
+
 	public String getCarrera() {
 		return carrera;
 	}
 	public String getCentroEducativo() {
-		return CentroEducativo;
+		return centroEducativo;
 	}
+	
 
 }

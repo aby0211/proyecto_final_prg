@@ -16,14 +16,14 @@ import java.awt.Dialog.ModalExclusionType;
 public class ResumenPostulacion extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
+	private JTextField txtOfertaLaboral;
+	private JTextField txtNombre;
+	private JTextField txtTelefono;
+	private JTextField txtFechaNacimiento;
+	private JTextField txtNivelDeEstudio;
+	private JTextField txtCentroEducativo;
+	private JTextField txtTituloCurriculum;
+	private JTextField txtAnnosExperiencia;
 
 	/**
 	 * Launch the application.
@@ -42,6 +42,7 @@ public class ResumenPostulacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public ResumenPostulacion() {
+		setTitle("Resumen de candidato");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
 		setResizable(false);
@@ -55,16 +56,16 @@ public class ResumenPostulacion extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
-				textField = new JTextField();
-				textField.setEditable(false);
-				textField.setColumns(10);
-				textField.setBounds(10, 36, 238, 25);
-				panel.add(textField);
+				txtOfertaLaboral = new JTextField();
+				txtOfertaLaboral.setEditable(false);
+				txtOfertaLaboral.setColumns(10);
+				txtOfertaLaboral.setBounds(10, 36, 238, 25);
+				panel.add(txtOfertaLaboral);
 			}
 			{
-				JLabel label = new JLabel("Nombre de la empresa ");
-				label.setBounds(10, 11, 144, 14);
-				panel.add(label);
+				JLabel lblOfertaLaboral = new JLabel("Oferta laboral:");
+				lblOfertaLaboral.setBounds(10, 11, 144, 14);
+				panel.add(lblOfertaLaboral);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -72,11 +73,11 @@ public class ResumenPostulacion extends JDialog {
 				panel_1.setBounds(10, 122, 511, 256);
 				panel.add(panel_1);
 				{
-					textField_1 = new JTextField();
-					textField_1.setEditable(false);
-					textField_1.setColumns(10);
-					textField_1.setBounds(10, 36, 238, 25);
-					panel_1.add(textField_1);
+					txtNombre = new JTextField();
+					txtNombre.setEditable(false);
+					txtNombre.setColumns(10);
+					txtNombre.setBounds(10, 36, 238, 25);
+					panel_1.add(txtNombre);
 				}
 				{
 					JLabel label = new JLabel("Nombre");
@@ -84,11 +85,11 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(label);
 				}
 				{
-					textField_2 = new JTextField();
-					textField_2.setEditable(false);
-					textField_2.setColumns(10);
-					textField_2.setBounds(258, 36, 238, 25);
-					panel_1.add(textField_2);
+					txtTelefono = new JTextField();
+					txtTelefono.setEditable(false);
+					txtTelefono.setColumns(10);
+					txtTelefono.setBounds(258, 36, 238, 25);
+					panel_1.add(txtTelefono);
 				}
 				{
 					JLabel label = new JLabel("Tel\u00E9fono");
@@ -96,11 +97,11 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(label);
 				}
 				{
-					textField_3 = new JTextField();
-					textField_3.setEditable(false);
-					textField_3.setColumns(10);
-					textField_3.setBounds(10, 220, 238, 25);
-					panel_1.add(textField_3);
+					txtFechaNacimiento = new JTextField();
+					txtFechaNacimiento.setEditable(false);
+					txtFechaNacimiento.setColumns(10);
+					txtFechaNacimiento.setBounds(10, 220, 238, 25);
+					panel_1.add(txtFechaNacimiento);
 				}
 				{
 					JLabel lblFechaDeNacimiento = new JLabel("Fecha de Nacimiento");
@@ -108,11 +109,11 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(lblFechaDeNacimiento);
 				}
 				{
-					textField_4 = new JTextField();
-					textField_4.setEditable(false);
-					textField_4.setColumns(10);
-					textField_4.setBounds(10, 97, 238, 25);
-					panel_1.add(textField_4);
+					txtNivelDeEstudio = new JTextField();
+					txtNivelDeEstudio.setEditable(false);
+					txtNivelDeEstudio.setColumns(10);
+					txtNivelDeEstudio.setBounds(10, 97, 238, 25);
+					panel_1.add(txtNivelDeEstudio);
 				}
 				{
 					JLabel label = new JLabel("Nivel de estudio");
@@ -120,11 +121,11 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(label);
 				}
 				{
-					textField_5 = new JTextField();
-					textField_5.setEditable(false);
-					textField_5.setColumns(10);
-					textField_5.setBounds(258, 97, 238, 25);
-					panel_1.add(textField_5);
+					txtCentroEducativo = new JTextField();
+					txtCentroEducativo.setEditable(false);
+					txtCentroEducativo.setColumns(10);
+					txtCentroEducativo.setBounds(258, 97, 238, 25);
+					panel_1.add(txtCentroEducativo);
 				}
 				{
 					JLabel label = new JLabel("Centro educativo:");
@@ -137,22 +138,22 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(lblTituloDelCurriculum);
 				}
 				{
-					textField_6 = new JTextField();
-					textField_6.setEditable(false);
-					textField_6.setColumns(10);
-					textField_6.setBounds(10, 158, 238, 25);
-					panel_1.add(textField_6);
+					txtTituloCurriculum = new JTextField();
+					txtTituloCurriculum.setEditable(false);
+					txtTituloCurriculum.setColumns(10);
+					txtTituloCurriculum.setBounds(10, 158, 238, 25);
+					panel_1.add(txtTituloCurriculum);
 				}
 				
 				JLabel lblAosDeExperiencia = new JLabel("A\u00F1os de experiencia");
 				lblAosDeExperiencia.setBounds(258, 133, 144, 14);
 				panel_1.add(lblAosDeExperiencia);
 				
-				textField_7 = new JTextField();
-				textField_7.setEditable(false);
-				textField_7.setColumns(10);
-				textField_7.setBounds(258, 158, 238, 25);
-				panel_1.add(textField_7);
+				txtAnnosExperiencia = new JTextField();
+				txtAnnosExperiencia.setEditable(false);
+				txtAnnosExperiencia.setColumns(10);
+				txtAnnosExperiencia.setBounds(258, 158, 238, 25);
+				panel_1.add(txtAnnosExperiencia);
 			}
 			{
 				JPanel panel_1 = new JPanel();
@@ -166,10 +167,10 @@ public class ResumenPostulacion extends JDialog {
 				}
 			}
 			{
-				JButton btnNewButton = new JButton("Finalizar contrataci\u00F3n");
-				btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				btnNewButton.setBounds(354, 389, 167, 36);
-				panel.add(btnNewButton);
+				JButton btnFinalizarContratacion = new JButton("Finalizar contrataci\u00F3n");
+				btnFinalizarContratacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
+				btnFinalizarContratacion.setBounds(354, 389, 167, 36);
+				panel.add(btnFinalizarContratacion);
 			}
 		}
 	}

@@ -12,6 +12,9 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Oferta;
+import logico.Solicitud;
+
 import java.awt.Font;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.MouseAdapter;
@@ -27,15 +30,15 @@ import java.awt.event.ActionEvent;
 public class DetallesOferta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField txtNombreEmpresa;
+	private JTextField txtOfertaLab;
+	private JTextField txtFechaVencimiento;
+	private JTextField txtCantVacantes;
+	private JTextField txtSalario;
+	private JTextField txtPeriodoPago;
+	private JTextField txtJornada;
+	private JTextField txtTipoContrato;
+	private JTextField txtProvincia;
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
@@ -43,20 +46,11 @@ public class DetallesOferta extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			DetallesOferta dialog = new DetallesOferta();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 	/**
 	 * Create the dialog.
 	 */
-	public DetallesOferta() {
+	public DetallesOferta(Oferta oferta) {
+		setTitle("Detalles de oferta");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
 		setBounds(100, 100, 780, 407);
@@ -89,75 +83,75 @@ public class DetallesOferta extends JDialog {
 			label_4.setBounds(10, 72, 122, 14);
 			panel.add(label_4);
 			
-			JLabel label_5 = new JLabel("Cantidad de vacantes:");
-			label_5.setBounds(506, 41, 148, 14);
-			panel.add(label_5);
+			JLabel lblVacantesDisponibles = new JLabel("Vacantes disponibles:");
+			lblVacantesDisponibles.setBounds(506, 41, 148, 14);
+			panel.add(lblVacantesDisponibles);
 			
-			textField = new JTextField();
-			textField.setEditable(false);
-			textField.setColumns(10);
-			textField.setBounds(258, 36, 238, 25);
-			panel.add(textField);
+			txtNombreEmpresa = new JTextField();
+			txtNombreEmpresa.setEditable(false);
+			txtNombreEmpresa.setColumns(10);
+			txtNombreEmpresa.setBounds(258, 36, 238, 25);
+			panel.add(txtNombreEmpresa);
 			
 			JLabel label_6 = new JLabel("Nombre de la empresa ");
-			label_6.setBounds(258, 11, 122, 14);
+			label_6.setBounds(258, 11, 139, 14);
 			panel.add(label_6);
 			
 			JLabel label_7 = new JLabel("Oferta laboral");
 			label_7.setBounds(10, 11, 122, 14);
 			panel.add(label_7);
 			
-			textField_1 = new JTextField();
-			textField_1.setEditable(false);
-			textField_1.setColumns(10);
-			textField_1.setBounds(10, 36, 238, 25);
-			panel.add(textField_1);
+			txtOfertaLab = new JTextField();
+			txtOfertaLab.setEditable(false);
+			txtOfertaLab.setColumns(10);
+			txtOfertaLab.setBounds(10, 36, 238, 25);
+			panel.add(txtOfertaLab);
 			
-			textField_2 = new JTextField();
-			textField_2.setEditable(false);
-			textField_2.setColumns(10);
-			textField_2.setBounds(506, 158, 238, 25);
-			panel.add(textField_2);
+			txtFechaVencimiento = new JTextField();
+			txtFechaVencimiento.setEditable(false);
+			txtFechaVencimiento.setColumns(10);
+			txtFechaVencimiento.setBounds(506, 158, 238, 25);
+			panel.add(txtFechaVencimiento);
 			
 			JLabel label_8 = new JLabel("Fecha de vencimiento");
 			label_8.setBounds(506, 133, 122, 14);
 			panel.add(label_8);
 			
-			textField_3 = new JTextField();
-			textField_3.setEditable(false);
-			textField_3.setColumns(10);
-			textField_3.setBounds(664, 36, 80, 25);
-			panel.add(textField_3);
+			txtCantVacantes = new JTextField();
+			txtCantVacantes.setEditable(false);
+			txtCantVacantes.setColumns(10);
+			txtCantVacantes.setBounds(664, 36, 80, 25);
+			panel.add(txtCantVacantes);
 			
-			textField_4 = new JTextField();
-			textField_4.setEditable(false);
-			textField_4.setColumns(10);
-			textField_4.setBounds(258, 97, 238, 25);
-			panel.add(textField_4);
+			txtSalario = new JTextField();
+			txtSalario.setEditable(false);
+			txtSalario.setColumns(10);
+			txtSalario.setBounds(258, 97, 238, 25);
+			panel.add(txtSalario);
 			
-			textField_5 = new JTextField();
-			textField_5.setEditable(false);
-			textField_5.setColumns(10);
-			textField_5.setBounds(506, 97, 238, 25);
-			panel.add(textField_5);
+			txtPeriodoPago = new JTextField();
+			txtPeriodoPago.setEditable(false);
+			txtPeriodoPago.setColumns(10);
+			txtPeriodoPago.setBounds(506, 97, 238, 25);
+			panel.add(txtPeriodoPago);
 			
-			textField_6 = new JTextField();
-			textField_6.setEditable(false);
-			textField_6.setColumns(10);
-			textField_6.setBounds(10, 158, 238, 25);
-			panel.add(textField_6);
+			txtJornada = new JTextField();
+			txtJornada.setEditable(false);
+			txtJornada.setColumns(10);
+			txtJornada.setBounds(10, 158, 238, 25);
+			panel.add(txtJornada);
 			
-			textField_7 = new JTextField();
-			textField_7.setEditable(false);
-			textField_7.setColumns(10);
-			textField_7.setBounds(258, 158, 238, 25);
-			panel.add(textField_7);
+			txtTipoContrato = new JTextField();
+			txtTipoContrato.setEditable(false);
+			txtTipoContrato.setColumns(10);
+			txtTipoContrato.setBounds(258, 158, 238, 25);
+			panel.add(txtTipoContrato);
 			
-			textField_8 = new JTextField();
-			textField_8.setEditable(false);
-			textField_8.setColumns(10);
-			textField_8.setBounds(10, 97, 238, 25);
-			panel.add(textField_8);
+			txtProvincia = new JTextField();
+			txtProvincia.setEditable(false);
+			txtProvincia.setColumns(10);
+			txtProvincia.setBounds(10, 97, 238, 25);
+			panel.add(txtProvincia);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
@@ -206,6 +200,17 @@ public class DetallesOferta extends JDialog {
 			btnVerCandidato.setEnabled(false);
 			btnVerCandidato.setBounds(565, 314, 179, 33);
 			panel.add(btnVerCandidato);
+			
+			txtOfertaLab.setText(oferta.getOfertaLaboral());
+			txtNombreEmpresa.setText(oferta.getMiCentro().getNombreEmpresa());
+			txtCantVacantes.setText(String.valueOf(oferta.getCantVacantes()));
+			txtJornada.setText(oferta.getJornada());
+			txtPeriodoPago.setText(oferta.getPeriodoCobro());
+			txtProvincia.setText(oferta.getProvincia());
+			txtSalario.setText(String.valueOf(oferta.getSalario()));
+			txtTipoContrato.setText(oferta.getTipoContrato());
+			txtFechaVencimiento.setText(oferta.getFechaVencimiento().toString());
+			
 			loadTable();
 		}
 		

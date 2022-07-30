@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class BolsaDeTrabajo {
 
-	private ArrayList<Candidato> misCandidatos;
-	private ArrayList<CentroEmpleador> misCentrosEmpleadores;
+	private ArrayList<Usuario> misUsuarios;
 	private ArrayList<Solicitud> misSolicitudes;
 	private int idSolicitud;
 	private int idCE;
@@ -13,8 +12,7 @@ public class BolsaDeTrabajo {
 	private static BolsaDeTrabajo bolsa = null;
 	public BolsaDeTrabajo() {
 		super();
-		this.misCandidatos = new ArrayList<Candidato>();
-		this.misCentrosEmpleadores = new ArrayList<CentroEmpleador>();
+		this.misUsuarios = new ArrayList<Usuario>();
 		this.misSolicitudes = new ArrayList<Solicitud>();
 		this.idCandidato=1;
 		this.idCE=1;
@@ -23,20 +21,17 @@ public class BolsaDeTrabajo {
 	
 	public static BolsaDeTrabajo getInstance(){
 		if(bolsa == null){
+			Administrador defaultUser = new Administrador("admin","NO", "NO", "Local", "Local", "Local", "admin", "admin");
 			bolsa = new BolsaDeTrabajo();
+			bolsa.getMisUsuarios().add(defaultUser);
 		}
 		return bolsa;
 	}
 	
-	public ArrayList<Candidato> getMisCandidatos() {
-		return misCandidatos;
+	public ArrayList<Usuario> getMisUsuarios() {
+		return misUsuarios;
 	}
-	public ArrayList<CentroEmpleador> getMisCentrosEmpleadores() {
-		return misCentrosEmpleadores;
-	}
-	public ArrayList<Solicitud> getMisSolicitudes() {
-		return misSolicitudes;
-	}
+
 	public int getIdSolicitud() {
 		return idSolicitud;
 	}
@@ -49,10 +44,15 @@ public class BolsaDeTrabajo {
 		return idCandidato;
 	}
 	
-	public boolean verificarLogin(String email ,String password) {
+	
+	public ArrayList<Solicitud> getMisSolicitudes() {
+		return misSolicitudes;
+	}
+
+	public boolean verificarLogin(String username ,String password) {
 		boolean match = false;
-		if(buscarEmpresaByEmail(email)!=null) {
-			if(buscarEmpresaByEmail(email).getPassword().equals(password)) {
+		if(buscarUsuarioByUser(username)!=null) {
+			if(buscarUsuarioByUser(username).getPassword().compareTo(password)==0) {
 				match = true;
 			}
 		}
@@ -60,20 +60,32 @@ public class BolsaDeTrabajo {
 		return match;
 	}
 
-	public CentroEmpleador buscarEmpresaByEmail(String email) {
-		CentroEmpleador auxEmpresa=null;
+	public Usuario buscarUsuarioByUser(String username) {
 		int i = 0;
+		Usuario auxUsuario=null;
 		boolean encontrado = false;
-		while(encontrado!=true&&i<BolsaDeTrabajo.getInstance().getMisCentrosEmpleadores().size()) {
-			if(BolsaDeTrabajo.getInstance().getMisCentrosEmpleadores().get(i).getEmail().equalsIgnoreCase(email)) {
-				auxEmpresa=BolsaDeTrabajo.getInstance().getMisCentrosEmpleadores().get(i);
+		while(encontrado!=true&&i<BolsaDeTrabajo.getInstance().getMisUsuarios().size()) {
+			if(BolsaDeTrabajo.getInstance().getMisUsuarios().get(i).getUsername().equalsIgnoreCase(username)) {
+				auxUsuario=BolsaDeTrabajo.getInstance().getMisUsuarios().get(i);
+			}
+			i++;
+		}
+		return auxUsuario;
+	}
+	
+	public Solicitud buscarSolicitudByCodigo(String codigo) {
+		Solicitud solicitud = null;
+		int i =0;
+		boolean encontrado = false;
+		while(encontrado!=true&&i<BolsaDeTrabajo.getInstance().getMisUsuarios().size()) {
+			if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				solicitud=BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i);
 				encontrado=true;
 			}
 			i++;
 		}
-		return auxEmpresa;
+		return solicitud;
 	}
-	
 	
 	
 }

@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +11,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -18,6 +20,13 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+
+import logico.BolsaDeTrabajo;
+import logico.CentroEmpleador;
+import logico.Oferta;
+import logico.Solicitud;
+
 import java.awt.Dialog.ModalExclusionType;
 
 public class MisOfertas extends JDialog {
@@ -26,14 +35,15 @@ public class MisOfertas extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	JButton btnVerDetalles = new JButton("Ver detalles");
+	private Oferta selected = null;
 
 	/**
 	 * Launch the application.
 	 */
 	
 
-	public MisOfertas() {
-		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
+	public MisOfertas(CentroEmpleador centro) {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setTitle("Mis ofertas");
@@ -55,7 +65,7 @@ public class MisOfertas extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
 				{
-					String headers[] = {"Oferta laboral", "Estado de oferta", "Vacantes disponibles", "Cantidad de postulaciones", "Fecha de vencimiento"};
+					String headers[] = {"Codigo", "Oferta laboral", "Estado de oferta", "Vacantes disponibles", "Cantidad de contrataciones", "Fecha de vencimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -67,7 +77,8 @@ public class MisOfertas extends JDialog {
 							row = table.getSelectedRow();
 							if(row>-1){
 								btnEliminarOferta.setEnabled(true);
-								//selected = Habana.getInstance().getMisFacturas().get(Habana.getInstance().buscarFacturaForIndex(table.getValueAt(row, 0).toString()));
+								btnVerDetalles.setEnabled(true);
+								selected = (Oferta) BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
 							}
 						}
 					});
@@ -79,33 +90,48 @@ public class MisOfertas extends JDialog {
 
 			btnEliminarOferta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la oferta con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+					if(option == JOptionPane.YES_OPTION){
+						//BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Removida por la empresa");
+						//BolsaDeTrabajo.getInstance().eliminarSolicitudEnEmpresa(centro.getEmail(), selected.getCodigo());
+						//loadTable(centro);
+					}
 				}
 			});
 			
 			btnEliminarOferta.setEnabled(false);
 			btnEliminarOferta.setBounds(651, 385, 124, 23);
 			panel.add(btnEliminarOferta);
+			btnVerDetalles.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					DetallesOferta list = new DetallesOferta(selected);
+					list.setVisible(true);
+				}
+			});
 			
-			JButton button = new JButton("Ver detalles");
-			button.setEnabled(false);
-			button.setBounds(531, 385, 110, 23);
-			panel.add(button);
+			
+			btnVerDetalles.setEnabled(false);
+			btnVerDetalles.setBounds(531, 385, 110, 23);
+			panel.add(btnVerDetalles);
 		}
-		loadTable();
+		loadTable(centro);
 	}
 
 
 	
-	private void loadTable() {
+	private void loadTable(CentroEmpleador centro) {
 		model.setRowCount(0);
-		model.setColumnCount(5);
+		model.setColumnCount(6);
 		row = new Object[model.getColumnCount()];
-		//for (int i = 0; i < Habana.getInstance().getMisFacturas().size(); i++) {
-			//row[0] = Habana.getInstance().getMisFacturas().get(i).getCodigo();
-			//row[1] = String.valueOf(Habana.getInstance().getMisFacturas().get(i).precioTotalFactura());
-			//model.addRow(row);
-		//}
-
+		for (int i = 0; i <centro.getMisSolicitudes().size(); i++) {
+			row[0] = centro.getMisSolicitudes().get(i).getCodigo();
+			row[1] = (((Oferta)centro.getMisSolicitudes().get(i)).getOfertaLaboral());
+			row[2] = (((Oferta)centro.getMisSolicitudes().get(i)).getEstado());
+			row[3] = (((Oferta)centro.getMisSolicitudes().get(i)).getCantVacantes());
+			row[4] = (((Oferta)centro.getMisSolicitudes().get(i)).getMisCandidatos().size());
+			row[5] = (((Oferta)centro.getMisSolicitudes().get(i)).getFechaVencimiento());
+			model.addRow(row);
+		}
 	}
 }
 
