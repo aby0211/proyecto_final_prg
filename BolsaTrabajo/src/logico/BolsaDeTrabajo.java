@@ -61,6 +61,21 @@ public class BolsaDeTrabajo {
 		return auxUsuario;
 	}
 	
+	public Candidato buscarCandidatoByPostulacion(String codigo) {
+		int i = 0;
+		Candidato auxUsuario=null;
+		boolean encontrado = false;
+		while(encontrado!=true&&i<BolsaDeTrabajo.getInstance().getMisSolicitudes().size()) {
+			if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)instanceof Postulacion) {
+				if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCodigo().equalsIgnoreCase(codigo)) {
+					auxUsuario=(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getMiCandidato());
+				}
+			}
+			i++;
+		}
+		return auxUsuario;
+	}
+	
 	public Solicitud buscarSolicitudByCodigo(String codigo) {
 		Solicitud solicitud = null;
 		int i =0;

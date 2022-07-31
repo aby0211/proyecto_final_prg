@@ -330,7 +330,7 @@ public class CrearPostulacion extends JDialog {
 			btnCrearPost.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					if(rdbtnUniversitario.isSelected()) {
-						Universitario auxSol = new Universitario("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxCarrera.getSelectedItem().toString(), txtCentroeducativo.getText());
+						Universitario auxSol = new Universitario("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxCarrera.getSelectedItem().toString(), txtCentroeducativo.getText(),user);
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
@@ -338,14 +338,14 @@ public class CrearPostulacion extends JDialog {
 					}
 					
 					if(rdbtnTecnico.isSelected()) {
-						Tecnico auxSol = new Tecnico("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxAreaTecnica.getSelectedItem().toString(), txtCentroeducativo.getText());
+						Tecnico auxSol = new Tecnico("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxAreaTecnica.getSelectedItem().toString(), txtCentroeducativo.getText(),user);
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					if(rdbtnEducacionBasica.isSelected()) {
-						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada");
+						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", user);
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();

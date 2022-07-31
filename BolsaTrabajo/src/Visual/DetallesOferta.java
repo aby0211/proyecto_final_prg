@@ -12,6 +12,8 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.BolsaDeTrabajo;
+import logico.Candidato;
 import logico.Oferta;
 import logico.Solicitud;
 
@@ -42,6 +44,7 @@ public class DetallesOferta extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	private Candidato selected=null;
 
 	/**
 	 * Launch the application.
@@ -50,6 +53,7 @@ public class DetallesOferta extends JDialog {
 	 * Create the dialog.
 	 */
 	public DetallesOferta(Oferta oferta) {
+		
 		setTitle("Detalles de oferta");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
@@ -169,14 +173,15 @@ public class DetallesOferta extends JDialog {
 			JButton btnVerCandidato = new JButton("Ver candidato");
 			btnVerCandidato.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					
+					ResumenPostulacion list=new ResumenPostulacion(oferta, selected);
+					list.setVisible(true);
 				}
 			});
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			panel_2.add(scrollPane, BorderLayout.CENTER);
 			{
-				String headers[] = {"Oferta laboral","Codigo del candidato", "Nombre del candidato"};
+				String headers[] = {"Codigo de postulacion", "Oferta laboral","Codigo del candidato", "Nombre del candidato"};
 				model = new DefaultTableModel();
 				model.setColumnIdentifiers(headers);
 				table = new JTable();
@@ -188,7 +193,7 @@ public class DetallesOferta extends JDialog {
 						row = table.getSelectedRow();
 						if(row>-1){
 							btnVerCandidato.setEnabled(true);
-							//selected = Habana.getInstance().getMisFacturas().get(Habana.getInstance().buscarFacturaForIndex(table.getValueAt(row, 1).toString()));
+							selected = BolsaDeTrabajo.getInstance().buscarCandidatoByPostulacion(table.getValueAt(row, 1).toString());
 						}
 					}
 				});
@@ -197,7 +202,10 @@ public class DetallesOferta extends JDialog {
 			}
 			
 			btnVerCandidato.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnVerCandidato.setEnabled(false);
+			btnVerCandidato.setEnabled(true);
+			if(oferta.getEstado().equalsIgnoreCase("Expirada")) {
+				btnVerCandidato.setEnabled(false);
+			}
 			btnVerCandidato.setBounds(565, 314, 179, 33);
 			panel.add(btnVerCandidato);
 			

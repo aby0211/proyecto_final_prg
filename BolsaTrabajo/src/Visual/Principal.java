@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -22,6 +23,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
@@ -43,7 +45,7 @@ public class Principal extends JFrame {
 	public Principal(Usuario user) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 883, 597);
+		setBounds(100, 100, 883, 600);
 		
 		
 		
@@ -173,6 +175,10 @@ public class Principal extends JFrame {
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setBounds(39, 41, 17, 14);
 		panel_1.add(lblNewLabel);
+		
+		JLabel imageLogin = new JLabel("");
+		imageLogin.setBounds(20, 36, 837, 359);
+		panel.add(imageLogin);
 		setLocationRelativeTo(null);
 		if(user instanceof Administrador) {
 			btnEmpresa.setEnabled(false);
@@ -194,5 +200,13 @@ public class Principal extends JFrame {
 			btnReporte.setEnabled(false);
 			btnSolicitud.setEnabled(false);
 		}
+		
+		Image img = new ImageIcon(this.getClass().getResource("/Untitled-2.png")).getImage();
+		imageLogin.setIcon(new ImageIcon(img));
+		
+		JLabel lblCerrarSesion = new JLabel("Cerrar Sesi\u00F3n");
+		lblCerrarSesion.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		lblCerrarSesion.setBounds(764, 395, 83, 14);
+		panel.add(lblCerrarSesion);
 	}
 }

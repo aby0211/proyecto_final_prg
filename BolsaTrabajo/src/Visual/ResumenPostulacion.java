@@ -10,6 +10,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
+
+import logico.Candidato;
+import logico.Oferta;
+
 import java.awt.Font;
 import java.awt.Dialog.ModalExclusionType;
 
@@ -28,20 +32,12 @@ public class ResumenPostulacion extends JDialog {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		try {
-			ResumenPostulacion dialog = new ResumenPostulacion();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	/**
 	 * Create the dialog.
 	 */
-	public ResumenPostulacion() {
+	public ResumenPostulacion(Oferta oferta, Candidato candidato) {
 		setTitle("Resumen de candidato");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
@@ -61,6 +57,7 @@ public class ResumenPostulacion extends JDialog {
 				txtOfertaLaboral.setColumns(10);
 				txtOfertaLaboral.setBounds(10, 36, 238, 25);
 				panel.add(txtOfertaLaboral);
+				txtOfertaLaboral.setText(oferta.getOfertaLaboral());
 			}
 			{
 				JLabel lblOfertaLaboral = new JLabel("Oferta laboral:");

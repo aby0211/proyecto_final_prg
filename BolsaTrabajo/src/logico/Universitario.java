@@ -5,8 +5,8 @@ import java.util.Date;
 public class Universitario extends Postulacion {
 	
 	public Universitario(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento,
-			int salarioMinimo, int annosExp, String estado, String carrera, String centroEducativo) {
-		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp, estado);
+			int salarioMinimo, int annosExp, String estado, String carrera, String centroEducativo, Candidato miCandidato) {
+		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp, estado, miCandidato);
 		this.carrera=carrera;
 		this.centroEducativo=centroEducativo;
 	}

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -126,6 +127,9 @@ public class MisOfertas extends JDialog {
 		for (int i = 0; i <centro.getMisOfertas().size(); i++) {
 			row[0] = centro.getMisOfertas().get(i).getCodigo();
 			row[1] = (((Oferta)centro.getMisOfertas().get(i)).getOfertaLaboral());
+			if (centro.getMisOfertas().get(i).getFechaVencimiento().before(new Date())) {
+			    centro.getMisOfertas().get(i).setEstado("Expirada");
+			}
 			row[2] = (((Oferta)centro.getMisOfertas().get(i)).getEstado());
 			row[3] = (((Oferta)centro.getMisOfertas().get(i)).getCantVacantes());
 			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getMisCandidatos().size());
