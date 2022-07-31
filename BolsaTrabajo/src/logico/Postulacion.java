@@ -5,9 +5,10 @@ import java.util.Date;
 public class Postulacion extends Solicitud {
 
 	
-	private int salarioMinimo;
-	private int annosExp;
-	private Candidato miCandidato;
+	protected int salarioMinimo;
+	protected int annosExp;
+	protected Candidato miCandidato;
+	
 	public Postulacion(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento, int salarioMinimo, int annosExp, String estado, Candidato miCandidato) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento,estado);
 		this.salarioMinimo=salarioMinimo;

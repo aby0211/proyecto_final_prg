@@ -7,17 +7,19 @@ public class Obrero extends Postulacion {
 
 
 	public Obrero(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento,
-			int salarioMinimo, int annosExp, String estado,Candidato miCandidato) {
+			int salarioMinimo, int annosExp, String estado,Candidato miCandidato,ArrayList<String> oficio) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp, estado, miCandidato);
-		this.oficio=new ArrayList<ItemOficio>();
 	}
 
-	private ArrayList<ItemOficio> oficio;
+	private ArrayList<String> oficio;
 
-	public ArrayList<ItemOficio> getOficio() {
+	public ArrayList<String> getOficio() {
 		return oficio;
 	}
 	
+	public void addOficio(String item) {
+		oficio.add(item);
+	}
 	
 
 	

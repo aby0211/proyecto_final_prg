@@ -29,6 +29,8 @@ import logico.Universitario;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SpinnerDateModel;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class CrearPostulacion extends JDialog {
@@ -40,6 +42,7 @@ public class CrearPostulacion extends JDialog {
 	private JTextField txtCentroeducativo;
 	private JTextField txtDireccion;
 	private JTextField txtFechaNacimiento;
+	private ArrayList<String> auxListaOficios;
 
 	/**
 	 * Launch the application.
@@ -50,7 +53,8 @@ public class CrearPostulacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public CrearPostulacion(Candidato user) {
-		setBounds(100, 100, 602, 778);
+		auxListaOficios=new ArrayList<String>();
+		setBounds(100, 100, 602, 801);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -62,7 +66,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JButton btnCrearPost = new JButton("Crear postulacion");
 
-			btnCrearPost.setBounds(414, 693, 152, 29);
+			btnCrearPost.setBounds(414, 712, 152, 29);
 			panel.add(btnCrearPost);
 			
 			JPanel panel_1 = new JPanel();
@@ -77,6 +81,7 @@ public class CrearPostulacion extends JDialog {
 			txtNombre.setBounds(10, 36, 260, 25);
 			panel_1.add(txtNombre);
 			
+
 			txtCedula = new JTextField();
 			txtCedula.setEditable(false);
 			txtCedula.setColumns(10);
@@ -184,7 +189,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JPanel panel_2 = new JPanel();
 			panel_2.setLayout(null);
-			panel_2.setBounds(10, 351, 556, 331);
+			panel_2.setBounds(10, 351, 556, 350);
 			panel.add(panel_2);
 			
 			JLabel label_10 = new JLabel("Nivel de estudio");
@@ -287,6 +292,16 @@ public class CrearPostulacion extends JDialog {
 			lblFechaDeVencimiento.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblFechaDeVencimiento.setBounds(280, 243, 266, 14);
 			panel_2.add(lblFechaDeVencimiento);
+			JButton btnAnadirLista = new JButton("A\u00F1adir a la lista de oficios");
+			btnAnadirLista.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					auxListaOficios.add(cbxOficio.getSelectedItem().toString());
+				}
+			});
+			
+			btnAnadirLista.setEnabled(false);
+			btnAnadirLista.setBounds(10, 304, 153, 23);
+			panel_2.add(btnAnadirLista);
 			
 			rdbtnEducacionBasica.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -298,6 +313,8 @@ public class CrearPostulacion extends JDialog {
 					cbxAreaTecnica.setEnabled(false);
 					cbxOficio.setEnabled(true);
 					cbxCarrera.setEnabled(false);
+					btnAnadirLista.setEnabled(true);
+					
 				}
 			});
 			
@@ -310,6 +327,7 @@ public class CrearPostulacion extends JDialog {
 					cbxAreaTecnica.setEnabled(true);
 					cbxOficio.setEnabled(false);
 					cbxCarrera.setEnabled(false);
+					btnAnadirLista.setEnabled(false);
 				}
 			});
 			
@@ -323,9 +341,12 @@ public class CrearPostulacion extends JDialog {
 					cbxAreaTecnica.setEnabled(false);
 					cbxOficio.setEnabled(false);
 					cbxCarrera.setEnabled(true);
+					btnAnadirLista.setEnabled(false);
 					
 				}
 			});
+			
+			
 			
 			btnCrearPost.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -344,8 +365,9 @@ public class CrearPostulacion extends JDialog {
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
+					
 					if(rdbtnEducacionBasica.isSelected()) {
-						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", user);
+						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", user,auxListaOficios);
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();

@@ -119,6 +119,12 @@ public class Principal extends JFrame {
 		btnUsuario.add(btnAnnadirUsuario);
 		
 		JMenuItem btnListaUsuarios = new JMenuItem("Lista de Usuarios");
+		btnListaUsuarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ListaDeUsuarios list = new ListaDeUsuarios();
+				list.setVisible(true);
+			}
+		});
 		btnUsuario.add(btnListaUsuarios);
 		
 		JMenu btnReporte = new JMenu("Reportes");

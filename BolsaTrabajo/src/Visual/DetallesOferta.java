@@ -15,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 import logico.BolsaDeTrabajo;
 import logico.Candidato;
 import logico.Oferta;
+import logico.Postulacion;
 import logico.Solicitud;
 
 import java.awt.Font;
@@ -44,7 +45,7 @@ public class DetallesOferta extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
-	private Candidato selected=null;
+	private Solicitud selected=null;
 
 	/**
 	 * Launch the application.
@@ -173,7 +174,7 @@ public class DetallesOferta extends JDialog {
 			JButton btnVerCandidato = new JButton("Ver candidato");
 			btnVerCandidato.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ResumenPostulacion list=new ResumenPostulacion(oferta, selected);
+					ResumenPostulacion list=new ResumenPostulacion(oferta,(Postulacion)selected);
 					list.setVisible(true);
 				}
 			});
@@ -193,7 +194,7 @@ public class DetallesOferta extends JDialog {
 						row = table.getSelectedRow();
 						if(row>-1){
 							btnVerCandidato.setEnabled(true);
-							selected = BolsaDeTrabajo.getInstance().buscarCandidatoByPostulacion(table.getValueAt(row, 1).toString());
+							selected = ((Solicitud)BolsaDeTrabajo.getInstance().buscarPostulacionByCodigo(table.getValueAt(row, 1).toString()));
 						}
 					}
 				});
