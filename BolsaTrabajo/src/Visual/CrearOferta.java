@@ -39,11 +39,11 @@ public class CrearOferta extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtNombre;
-	private JTextField txtOfertaLaboral;
 	private JComboBox cbxCategoriaLab;
 	private JTextField OfertaLaboral;
 	private JSpinner spnVacantes;
 	private JSpinner spnSalario;
+	private JTextField txtOfertaLab;
 	
 	public CrearOferta(Usuario user) {
 		setTitle("Crear oferta de trabajo");
@@ -71,13 +71,6 @@ public class CrearOferta extends JDialog {
 		txtNombre.setBounds(142, 20, 238, 25);
 		txtNombre.setText(((CentroEmpleador)user).getNombreEmpresa());
 		panel.add(txtNombre);
-		
-		txtOfertaLaboral = new JTextField();
-
-
-		txtOfertaLaboral.setColumns(10);
-		txtOfertaLaboral.setBounds(258, 81, 238, 25);
-		panel.add(txtOfertaLaboral);
 		
 		JSpinner spnVacantes = new JSpinner();
 		spnVacantes.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
@@ -143,13 +136,14 @@ public class CrearOferta extends JDialog {
 		cbxCategoriaLab.setEnabled(false);
 		JButton button = new JButton("Crear oferta");
 		JComboBox cbxNivelEstudio = new JComboBox();
+		txtOfertaLab = new JTextField();
 		cbxNivelEstudio.setModel(new DefaultComboBoxModel(new String[] {"Universitario", "T\u00E9cnico", "Educaci\u00F3n b\u00E1sica"}));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Date date = new Date();
-				
-				Oferta auxOferta = new Oferta("CO-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLab.getSelectedItem().toString(), txtOfertaLaboral.getText(), cbxNivelEstudio.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), date, Integer.parseInt(spnVacantes.getValue().toString()), cbxJornada.getSelectedItem().toString(), Integer.parseInt(spnSalario.getValue().toString()), cbxTipoDeContrato.getSelectedItem().toString(), cbxPeriodoPago.getSelectedItem().toString(), ((CentroEmpleador)user), "Disponible");
-				
+				Oferta auxOferta = new Oferta("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLab.getSelectedItem().toString(), txtOfertaLab.getText(), cbxNivelEstudio.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (java.sql.Date)spnFechaVencimiento.getValue(), Integer.parseInt(spnVacantes.getValue().toString()), cbxJornada.getSelectedItem().toString(), Integer.parseInt(spnSalario.getValue().toString()), cbxTipoDeContrato.getSelectedItem().toString(), cbxPeriodoPago.getSelectedItem().toString(), ((CentroEmpleador)user), "Disponible");
+				((CentroEmpleador)user).getMisOfertas().add(auxOferta);
+				BolsaDeTrabajo.getInstance().aumentarCodSol();
+				BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxOferta);
 				JOptionPane.showMessageDialog(null, "La oferta se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
@@ -158,7 +152,7 @@ public class CrearOferta extends JDialog {
 		panel.add(button);
 		
 		
-		spnFechaVencimiento.setModel(new SpinnerDateModel(new Date(1658863542285L), new Date(1658863542285L), null, Calendar.DAY_OF_YEAR));
+		spnFechaVencimiento.setModel(new SpinnerDateModel(new Date(), new Date(), null, Calendar.DAY_OF_YEAR));
 		spnFechaVencimiento.setBounds(9, 386, 242, 25);
 		panel.add(spnFechaVencimiento);
 		
@@ -179,5 +173,10 @@ public class CrearOferta extends JDialog {
 		JLabel lblNivelDeEstudio = new JLabel("Nivel de estudio requerido:");
 		lblNivelDeEstudio.setBounds(9, 117, 137, 14);
 		panel.add(lblNivelDeEstudio);
+		
+		txtOfertaLab.setText((String) null);
+		txtOfertaLab.setColumns(10);
+		txtOfertaLab.setBounds(258, 81, 238, 25);
+		panel.add(txtOfertaLab);
 	}
 }

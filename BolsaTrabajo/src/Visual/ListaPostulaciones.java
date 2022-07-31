@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -23,37 +25,42 @@ import javax.swing.table.DefaultTableModel;
 
 
 import logico.BolsaDeTrabajo;
+import logico.Candidato;
 import logico.CentroEmpleador;
+import logico.Obrero;
 import logico.Oferta;
+import logico.Postulacion;
 import logico.Solicitud;
+import logico.Tecnico;
+import logico.Universitario;
 
 import java.awt.Dialog.ModalExclusionType;
 
-public class MisOfertas extends JDialog {
+public class ListaPostulaciones extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
 	JButton btnVerDetalles = new JButton("Ver detalles");
-	private Oferta selected = null;
+	private Postulacion selected = null;
 
 	/**
 	 * Launch the application.
 	 */
 	
 
-	public MisOfertas(CentroEmpleador centro) {
+	public ListaPostulaciones(Candidato user) {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Mis ofertas");
+		setTitle("Lista de postulaciones");
 		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		JButton btnEliminarOferta = new JButton("Eliminar oferta");
+		JButton btnEliminarOferta = new JButton("Eliminar postulacion");
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -65,7 +72,7 @@ public class MisOfertas extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
 				{
-					String headers[] = {"Codigo", "Oferta laboral", "Estado de oferta", "Vacantes disponibles", "Cantidad de contrataciones", "Fecha de vencimiento"};
+					String headers[] = {"Codigo", "Estado de oferta","Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -78,7 +85,7 @@ public class MisOfertas extends JDialog {
 							if(row>-1){
 								btnEliminarOferta.setEnabled(true);
 								btnVerDetalles.setEnabled(true);
-								selected = (Oferta) BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
+								selected = (Postulacion) BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
 							}
 						}
 					});
@@ -93,43 +100,55 @@ public class MisOfertas extends JDialog {
 					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la oferta con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if(option == JOptionPane.YES_OPTION){
 						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
-						//BolsaDeTrabajo.getInstance().eliminarSolicitudEnEmpresa(centro.getEmail(), selected.getCodigo());
-						loadTable(centro);
+						BolsaDeTrabajo.getInstance().buscarSolicitudEnCandidato(user, selected.getCodigo()).setEstado("Eliminada");
+						BolsaDeTrabajo.getInstance().eliminarSolicitudEnCandidato(user, selected.getCodigo());
+						loadTable(user);
 					}
 				}
 			});
 			
 			btnEliminarOferta.setEnabled(false);
-			btnEliminarOferta.setBounds(651, 385, 124, 23);
+			btnEliminarOferta.setBounds(623, 385, 152, 23);
 			panel.add(btnEliminarOferta);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					DetallesOferta list = new DetallesOferta(selected);
-					list.setVisible(true);
+					//DetallesOferta list = new DetallesOferta(selected);
+					//list.setVisible(true);
 				}
 			});
 			
 			
 			btnVerDetalles.setEnabled(false);
-			btnVerDetalles.setBounds(531, 385, 110, 23);
+			btnVerDetalles.setBounds(503, 385, 110, 23);
 			panel.add(btnVerDetalles);
 		}
-		loadTable(centro);
+		loadTable(user);
 	}
 
 
 	
-	private void loadTable(CentroEmpleador centro) {
+	private void loadTable(Candidato user) {
 		model.setRowCount(0);
-		model.setColumnCount(6);
+		model.setColumnCount(5);
 		row = new Object[model.getColumnCount()];
-		for (int i = 0; i <centro.getMisOfertas().size(); i++) {
-			row[0] = centro.getMisOfertas().get(i).getCodigo();
-			row[1] = (((Oferta)centro.getMisOfertas().get(i)).getOfertaLaboral());
-			row[2] = (((Oferta)centro.getMisOfertas().get(i)).getEstado());
-			row[3] = (((Oferta)centro.getMisOfertas().get(i)).getCantVacantes());
-			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getMisCandidatos().size());
-			row[5] = (((Oferta)centro.getMisOfertas().get(i)).getFechaVencimiento());
+		for (int i = 0; i <user.getMisPostulaciones().size(); i++) {
+			row[0] = user.getMisPostulaciones().get(i).getCodigo();
+			if (user.getMisPostulaciones().get(i).getFechaVencimiento().before(new Date())) {
+			    user.getMisPostulaciones().get(i).setEstado("Expirada");
+			}
+			row[1] = user.getMisPostulaciones().get(i).getEstado();
+			if(user.getMisPostulaciones().get(i)instanceof Universitario) {
+				row[2] = "Universitario";
+			}
+			if(user.getMisPostulaciones().get(i)instanceof Tecnico) {
+				row[2] = "Técnico";
+			}
+			if(user.getMisPostulaciones().get(i)instanceof Obrero) {
+				row[2] = "Educ. Básica";
+			}
+			
+			row[3] = user.getMisPostulaciones().get(i).getCategoriaLaboral();
+			row[4] =  user.getMisPostulaciones().get(i).getFechaVencimiento();
 			model.addRow(row);
 		}
 	}

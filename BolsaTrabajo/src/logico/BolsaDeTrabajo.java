@@ -7,15 +7,11 @@ public class BolsaDeTrabajo {
 	private ArrayList<Usuario> misUsuarios;
 	private ArrayList<Solicitud> misSolicitudes;
 	private int idSolicitud;
-	private int idCE;
-	private int idCandidato;
 	private static BolsaDeTrabajo bolsa = null;
 	public BolsaDeTrabajo() {
 		super();
 		this.misUsuarios = new ArrayList<Usuario>();
 		this.misSolicitudes = new ArrayList<Solicitud>();
-		this.idCandidato=1;
-		this.idCE=1;
 		this.idSolicitud=1;
 	}
 	
@@ -34,14 +30,6 @@ public class BolsaDeTrabajo {
 
 	public int getIdSolicitud() {
 		return idSolicitud;
-	}
-
-	public int getIdCE() {
-		return idCE;
-	}
-
-	public int getIdCandidato() {
-		return idCandidato;
 	}
 	
 	
@@ -85,6 +73,56 @@ public class BolsaDeTrabajo {
 			i++;
 		}
 		return solicitud;
+	}
+	
+	public Solicitud buscarSolicitudEnCandidato(Candidato user, String codigo) {
+		Solicitud solicitud = null;
+		int i =0;
+		boolean encontrado = false;
+		while(encontrado!=true&&i<user.getMisPostulaciones().size()) {
+			if(user.getMisPostulaciones().get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				solicitud=user.getMisPostulaciones().get(i);
+				encontrado=true;
+			}
+			i++;
+		}
+		return solicitud;
+	}
+	
+	public Solicitud buscarSolicitudEnEmpresa(CentroEmpleador user, String codigo) {
+		Solicitud solicitud = null;
+		int i =0;
+		boolean encontrado = false;
+		while(encontrado!=true&&i<user.getMisOfertas().size()) {
+			if(user.getMisOfertas().get(i).getCodigo().equalsIgnoreCase(codigo)) {
+				solicitud=user.getMisOfertas().get(i);
+				encontrado=true;
+			}
+			i++;
+		}
+		return solicitud;
+	}
+	
+	public void aumentarCodSol() {
+		idSolicitud++;
+	}
+	
+	public void eliminarSolicitudEnCandidato(Candidato user,String codigo) {
+		if(buscarSolicitudEnCandidato(user, codigo)!=null) {
+			user.getMisPostulaciones().remove(buscarSolicitudEnCandidato(user, codigo));
+		}
+	}
+	
+	public void eliminarSolicitudEnCandidato(CentroEmpleador user,String codigo) {
+		if(buscarSolicitudEnEmpresa(user, codigo)!=null) {
+			user.getMisOfertas().remove(buscarSolicitudEnEmpresa(user, codigo));
+		}
+	}
+	
+	public void eliminarSolicitudGlobal(String codigo) {
+		if(buscarSolicitudByCodigo(codigo)!=null) {
+			BolsaDeTrabajo.getInstance().getMisSolicitudes().remove(buscarSolicitudByCodigo(codigo));
+		}
 	}
 	
 	

@@ -14,7 +14,7 @@ public abstract class Solicitud {
 		this.codigo = codigo;
 		this.categoriaLaboral = categoriaLaboral;
 		this.provincia = provincia;
-		this.fechaVencimiento = new Date();
+		this.fechaVencimiento = fechaVencimiento;
 		this.estado=estado;
 	}
 	public String getCodigo() {
@@ -32,6 +32,10 @@ public abstract class Solicitud {
 	public String getEstado() {
 		return estado;
 	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
 	
 	
 	

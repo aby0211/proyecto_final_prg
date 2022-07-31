@@ -7,7 +7,7 @@ public class CentroEmpleador extends Usuario{
 	private String nombreEmpresa;
 	private String rnc;
 	private String categoriaLaboral;
-	private ArrayList<Solicitud> misSolicitudes;
+	private ArrayList<Oferta> misOfertas;
 	private ArrayList<Candidato> misCandidatos;
 	
 	public CentroEmpleador(String nombre,String cedula, String sexo,String nombreEmpresa, String provincia, String direccion, String telefono,
@@ -17,7 +17,7 @@ public class CentroEmpleador extends Usuario{
 		this.nombreEmpresa=nombreEmpresa;
 		this.categoriaLaboral=categoriaLaboral;
 		this.misCandidatos=new ArrayList<Candidato>();
-		this.misSolicitudes=new ArrayList<Solicitud>();
+		this.misOfertas=new ArrayList<Oferta>();
 		
 	}
 
@@ -33,8 +33,8 @@ public class CentroEmpleador extends Usuario{
 		return categoriaLaboral;
 	}
 
-	public ArrayList<Solicitud> getMisSolicitudes() {
-		return misSolicitudes;
+	public ArrayList<Oferta> getMisOfertas() {
+		return misOfertas;
 	}
 
 	public ArrayList<Candidato> getMisCandidatos() {

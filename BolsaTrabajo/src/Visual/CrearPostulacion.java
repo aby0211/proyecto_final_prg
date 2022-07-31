@@ -8,9 +8,12 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import javax.swing.JRadioButton;
 import javax.swing.JComboBox;
@@ -18,8 +21,15 @@ import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.border.EtchedBorder;
 
+import logico.BolsaDeTrabajo;
 import logico.Candidato;
+import logico.Obrero;
+import logico.Tecnico;
+import logico.Universitario;
+
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SpinnerDateModel;
+import java.util.Calendar;
 
 public class CrearPostulacion extends JDialog {
 
@@ -50,9 +60,10 @@ public class CrearPostulacion extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			
-			JButton btnNewButton = new JButton("Crear postulacion");
-			btnNewButton.setBounds(414, 693, 152, 29);
-			panel.add(btnNewButton);
+			JButton btnCrearPost = new JButton("Crear postulacion");
+
+			btnCrearPost.setBounds(414, 693, 152, 29);
+			panel.add(btnCrearPost);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setLayout(null);
@@ -209,7 +220,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JLabel label_12 = new JLabel("Carrera:");
 			label_12.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_12.setBounds(280, 121, 169, 14);
+			label_12.setBounds(280, 60, 169, 14);
 			panel_2.add(label_12);
 			
 			JLabel label_13 = new JLabel("Area t\u00E9cnica:");
@@ -218,21 +229,23 @@ public class CrearPostulacion extends JDialog {
 			panel_2.add(label_13);
 			
 			JComboBox cbxCarrera = new JComboBox();
-			cbxCarrera.setBounds(280, 146, 266, 25);
+			cbxCarrera.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administraci\u00F3n hotelera", "Arquitectura", "Comunicaci\u00F3n social", "Derecho", "Dise\u00F1o e interiorismo", "Econom\u00EDa", "Eduaci\u00F3n", "Estomatolog\u00EDa", "Filosof\u00EDa", "Gesti\u00F3n financiera", "Ingenier\u00EDa civil", "Ingenieria m\u00E9canica", "Ingenier\u00EDa el\u00E9ctrica", "Ingenier\u00EDa industrial", "Ingenier\u00EDa mecatr\u00F3nica", "Ingenier\u00EDa de ciencias de la computaci\u00F3n", "Ingenier\u00EDa telem\u00E1tica", "Ingenier\u00EDa Ambiental", "Medic\u00EDna", "Marketing", "Nutrici\u00F3n", "Psicolog\u00EDa", "Terapia f\u00EDsica", "Trabajo social", "Hospitalidad y turismo"}));
+			cbxCarrera.setBounds(280, 85, 266, 25);
 			panel_2.add(cbxCarrera);
 			
 			JComboBox cbxAreaTecnica = new JComboBox();
+			cbxAreaTecnica.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
 			cbxAreaTecnica.setEnabled(false);
 			cbxAreaTecnica.setBounds(10, 207, 260, 25);
 			panel_2.add(cbxAreaTecnica);
 			
 			JLabel label_14 = new JLabel("A\u00F1os de experiencia:");
 			label_14.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_14.setBounds(280, 211, 120, 14);
+			label_14.setBounds(280, 150, 120, 14);
 			panel_2.add(label_14);
 			
 			JSpinner spnAnnosExp = new JSpinner();
-			spnAnnosExp.setBounds(472, 207, 74, 25);
+			spnAnnosExp.setBounds(472, 146, 74, 25);
 			panel_2.add(spnAnnosExp);
 			
 			JLabel label_15 = new JLabel("Oficio:");
@@ -241,27 +254,39 @@ public class CrearPostulacion extends JDialog {
 			panel_2.add(label_15);
 			
 			JComboBox cbxOficio = new JComboBox();
+			cbxOficio.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
 			cbxOficio.setEnabled(false);
 			cbxOficio.setBounds(10, 268, 260, 25);
 			panel_2.add(cbxOficio);
 			
 			JLabel label_16 = new JLabel("Salario m\u00EDnimo:");
 			label_16.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_16.setBounds(280, 243, 266, 14);
+			label_16.setBounds(280, 182, 266, 14);
 			panel_2.add(label_16);
 			
 			JSpinner spnSalarioMin = new JSpinner();
-			spnSalarioMin.setBounds(280, 268, 266, 25);
+			spnSalarioMin.setBounds(280, 207, 266, 25);
 			panel_2.add(spnSalarioMin);
 			
 			JComboBox cbxCategoriaLaboral = new JComboBox();
-			cbxCategoriaLaboral.setBounds(10, 85, 266, 25);
+			cbxCategoriaLaboral.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Mercado Financiero", "Crecimiento Econ\u00F3mico", "Biotecnolog\u00EDa y Seguridad Qu\u00EDmica", "Desarrollo Regional y Rural Urbano", "Turismo", "Medio Ambiente", "Comercio", "Asuntos Sociales y Bienestar", "Pymes y Emprendimiento", "Tecnolog\u00EDa de la Informaci\u00F3n y Comunicaciones", "Energ\u00EDa", "Legal", "Seguros y Pensiones", "Educaci\u00F3n", "Migraci\u00F3n", "Industrias y Servicios", "Inversiones", "Gobierno y Administraci\u00F3n P\u00FAblica", "Agricultura", "Pesca", "Salud", "Contabilidad"}));
+			cbxCategoriaLaboral.setBounds(10, 85, 260, 25);
 			panel_2.add(cbxCategoriaLaboral);
 			
 			JLabel label_17 = new JLabel("Categoria laboral:");
 			label_17.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			label_17.setBounds(10, 62, 108, 14);
 			panel_2.add(label_17);
+			
+			JSpinner spnVencimiento = new JSpinner();
+			spnVencimiento.setModel(new SpinnerDateModel(new java.util.Date(), new java.util.Date(), null, Calendar.DAY_OF_YEAR));
+			spnVencimiento.setBounds(280, 268, 266, 25);
+			panel_2.add(spnVencimiento);
+			
+			JLabel lblFechaDeVencimiento = new JLabel("Fecha de vencimiento:");
+			lblFechaDeVencimiento.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblFechaDeVencimiento.setBounds(280, 243, 266, 14);
+			panel_2.add(lblFechaDeVencimiento);
 			
 			rdbtnEducacionBasica.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -302,6 +327,33 @@ public class CrearPostulacion extends JDialog {
 				}
 			});
 			
+			btnCrearPost.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					if(rdbtnUniversitario.isSelected()) {
+						Universitario auxSol = new Universitario("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxCarrera.getSelectedItem().toString(), txtCentroeducativo.getText());
+						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
+						user.getMisPostulaciones().add(auxSol);
+						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+					
+					if(rdbtnTecnico.isSelected()) {
+						Tecnico auxSol = new Tecnico("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", cbxAreaTecnica.getSelectedItem().toString(), txtCentroeducativo.getText());
+						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
+						user.getMisPostulaciones().add(auxSol);
+						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+					if(rdbtnEducacionBasica.isSelected()) {
+						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada");
+						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
+						user.getMisPostulaciones().add(auxSol);
+						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+				}
+			});
+			
 			txtNombre.setText(user.getNombre());
 			txtCedula.setText(user.getCedula());
 			cbxProvincia.setSelectedItem(user.getProvincia());
@@ -318,6 +370,7 @@ public class CrearPostulacion extends JDialog {
 			}else {
 				rdbtnVehiculoNo.setSelected(true);
 			}
+			
 			
 			
 			

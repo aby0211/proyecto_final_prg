@@ -4,15 +4,16 @@ import java.util.Date;
 
 public class Universitario extends Postulacion {
 	
-	private String carrera;
-	private String centroEducativo;
-	
 	public Universitario(String codigo, String categoriaLaboral, String provincia, Date fechaVencimiento,
-			int salarioMinimo, int annosExp, String carrera, String centroEducativo, String estado) {
+			int salarioMinimo, int annosExp, String estado, String carrera, String centroEducativo) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento, salarioMinimo, annosExp, estado);
 		this.carrera=carrera;
 		this.centroEducativo=centroEducativo;
 	}
+	private String carrera;
+	private String centroEducativo;
+	
+
 
 	public String getCarrera() {
 		return carrera;

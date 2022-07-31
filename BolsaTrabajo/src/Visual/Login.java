@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
@@ -12,6 +13,7 @@ import logico.BolsaDeTrabajo;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Label;
 
 import javax.swing.JTextField;
@@ -43,7 +45,7 @@ public class Login extends JDialog {
 	 */
 	public Login() {
 		setTitle("Bolsa de trabajo");
-		setBounds(100, 100, 663, 613);
+		setBounds(100, 100, 816, 467);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -70,13 +72,13 @@ public class Login extends JDialog {
 			{
 				txtPassword = new JTextField();
 				txtPassword.setColumns(10);
-				txtPassword.setBounds(42, 280, 219, 25);
+				txtPassword.setBounds(42, 254, 219, 25);
 				panel.add(txtPassword);
 			}
 			{
 				JLabel lblContrasea = new JLabel("Contrase\u00F1a");
 				lblContrasea.setFont(new Font("Tahoma", Font.PLAIN, 26));
-				lblContrasea.setBounds(42, 238, 219, 31);
+				lblContrasea.setBounds(42, 212, 219, 31);
 				panel.add(lblContrasea);
 			}
 			JLabel lblIncorrecto = new JLabel("Usuario o contrase\u00F1a incorrectos");
@@ -84,7 +86,7 @@ public class Login extends JDialog {
 			{
 				lblIncorrecto.setVisible(false);
 				lblIncorrecto.setForeground(Color.RED);
-				lblIncorrecto.setBounds(52, 382, 271, 14);
+				lblIncorrecto.setBounds(52, 347, 271, 14);
 				panel.add(lblIncorrecto);
 			}
 			{
@@ -101,19 +103,20 @@ public class Login extends JDialog {
 					}
 				});
 				button.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				button.setBounds(81, 340, 139, 31);
+				button.setBounds(81, 305, 139, 31);
 				panel.add(button);
 			}
-			
-			JPanel panel_1 = new JPanel();
-			panel_1.setBackground(Color.WHITE);
-			panel_1.setBounds(304, 11, 323, 542);
-			panel.add(panel_1);
 			
 			JLabel lblIniciarSesin = new JLabel("Iniciar Sesi\u00F3n");
 			lblIniciarSesin.setFont(new Font("Tahoma", Font.PLAIN, 30));
 			lblIniciarSesin.setBounds(10, 30, 219, 31);
 			panel.add(lblIniciarSesin);
+			
+			JLabel imageLogin = new JLabel("");
+			imageLogin.setBounds(333, 11, 442, 396);
+			panel.add(imageLogin);
+			Image img = new ImageIcon(this.getClass().getResource("/Untitled-1.png")).getImage();
+			imageLogin.setIcon(new ImageIcon(img));
 		}
 	}
 }

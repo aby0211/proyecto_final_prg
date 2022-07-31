@@ -1,7 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 
 public class Oferta extends Solicitud {
 
@@ -18,6 +18,7 @@ public class Oferta extends Solicitud {
 	public Oferta(String codigo, String categoriaLaboral,String ofertaLaboral,String nivelEstudioReq, String provincia, Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato, String periodoCobro, CentroEmpleador miCentro, String estado) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento,estado);
 		this.cantVacantes=cantVacantes;
+		this.ofertaLaboral=ofertaLaboral;
 		this.nivelEstudioReq=nivelEstudioReq;
 		this.jornada=jornada;
 		this.salario=salario;

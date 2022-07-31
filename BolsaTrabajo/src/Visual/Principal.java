@@ -71,13 +71,6 @@ public class Principal extends JFrame {
 		});
 		btnEmpresa.add(btnCrearOferta);
 		
-		JMenuItem btnListaCanditatos = new JMenuItem("Lista de candidatos");
-		btnListaCanditatos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnEmpresa.add(btnListaCanditatos);
-		
 		JMenu btnCandadito = new JMenu("Candidato");
 		menuBar.add(btnCandadito);
 		
@@ -91,15 +84,24 @@ public class Principal extends JFrame {
 		btnCandadito.add(btnCrearPost);
 		
 		JMenuItem btnListaPost = new JMenuItem("Lista de Postulaciones");
+		btnListaPost.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListaPostulaciones list = new ListaPostulaciones((Candidato)user);
+				list.setVisible(true);
+			}
+		});
 		btnCandadito.add(btnListaPost);
 		
 		JMenu btnSolicitud = new JMenu("Solicitudes");
 		menuBar.add(btnSolicitud);
 		
-		JMenuItem btnListaOfertas = new JMenuItem("Lista de Ofertas");
-		btnSolicitud.add(btnListaOfertas);
-		
-		JMenuItem btnListaPostulaciones = new JMenuItem("Lista de Postulaciones");
+		JMenuItem btnListaPostulaciones = new JMenuItem("Lista de solicitudes");
+		btnListaPostulaciones.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ListaSolicitudes list = new ListaSolicitudes();
+				list.setVisible(true);
+			}
+		});
 		btnSolicitud.add(btnListaPostulaciones);
 		
 		JMenu btnUsuario = new JMenu("Usuarios");

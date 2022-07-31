@@ -7,7 +7,7 @@ public class Candidato extends Usuario {
 	protected float rangoSalarioMinimo;
 	protected boolean viajarDisp;
 	protected boolean vehiculoPropio;
-	protected ArrayList<Solicitud> misSolicitudes;
+	protected ArrayList<Postulacion> misPostulaciones;
 	protected boolean empleado;
 	
 	
@@ -17,7 +17,7 @@ public class Candidato extends Usuario {
 		this.rangoSalarioMinimo=rangoSalarioMinimo;
 		this.viajarDisp=viajarDisp;
 		this.vehiculoPropio=vehiculoPropio;
-		this.misSolicitudes=new ArrayList<Solicitud>();
+		this.misPostulaciones=new ArrayList<Postulacion>();
 		this.empleado=false;
 	}
 
@@ -33,8 +33,8 @@ public class Candidato extends Usuario {
 		return vehiculoPropio;
 	}
 
-	public ArrayList<Solicitud> getMisSolicitudes() {
-		return misSolicitudes;
+	public ArrayList<Postulacion> getMisPostulaciones() {
+		return misPostulaciones;
 	}
 
 	public boolean isEmpleado() {
