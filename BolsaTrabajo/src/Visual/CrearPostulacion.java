@@ -32,6 +32,8 @@ import javax.swing.SpinnerDateModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import javax.swing.SpinnerNumberModel;
 
 public class CrearPostulacion extends JDialog {
 
@@ -43,6 +45,9 @@ public class CrearPostulacion extends JDialog {
 	private JTextField txtDireccion;
 	private JTextField txtFechaNacimiento;
 	private ArrayList<String> auxListaOficios;
+	private JComboBox cbxCategoriaLaboral;
+	private JComboBox cbxCarrera;
+	
 
 	/**
 	 * Launch the application.
@@ -126,10 +131,10 @@ public class CrearPostulacion extends JDialog {
 			txtTelefono.setBounds(280, 156, 266, 25);
 			panel_1.add(txtTelefono);
 			
-			JLabel label_6 = new JLabel("Telefono:");
-			label_6.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_6.setBounds(280, 133, 108, 14);
-			panel_1.add(label_6);
+			JLabel lblTelfono = new JLabel("Tel\u00E9fono:");
+			lblTelfono.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblTelfono.setBounds(280, 133, 108, 14);
+			panel_1.add(lblTelfono);
 			
 			JLabel label_7 = new JLabel("Disponibilidad para viajar:");
 			label_7.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -176,7 +181,7 @@ public class CrearPostulacion extends JDialog {
 			txtDireccion.setBounds(280, 97, 266, 25);
 			panel_1.add(txtDireccion);
 			
-			JLabel lblDireccion = new JLabel("Direccion");
+			JLabel lblDireccion = new JLabel("Direcci\u00F3n:");
 			lblDireccion.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			lblDireccion.setBounds(280, 72, 108, 14);
 			panel_1.add(lblDireccion);
@@ -215,7 +220,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JLabel label_11 = new JLabel("Centro educativo:");
 			label_11.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_11.setBounds(10, 121, 108, 14);
+			label_11.setBounds(10, 121, 260, 14);
 			panel_2.add(label_11);
 			
 			txtCentroeducativo = new JTextField();
@@ -230,7 +235,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JLabel label_13 = new JLabel("Area t\u00E9cnica:");
 			label_13.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_13.setBounds(10, 182, 108, 14);
+			label_13.setBounds(10, 182, 260, 14);
 			panel_2.add(label_13);
 			
 			JComboBox cbxCarrera = new JComboBox();
@@ -239,17 +244,18 @@ public class CrearPostulacion extends JDialog {
 			panel_2.add(cbxCarrera);
 			
 			JComboBox cbxAreaTecnica = new JComboBox();
-			cbxAreaTecnica.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+			cbxAreaTecnica.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Automatizaci\u00F3n", "Artes culinarias", "Admistracion de empresas", "Dise\u00F1o gr\u00E1fico", "Enfermer\u00EDa", "Gesti\u00F3n social", "Logistica integral", "Microfinanzas", "Mercado", "Programaci\u00F3n web", "Publicidad", "Redes de datos"}));
 			cbxAreaTecnica.setEnabled(false);
 			cbxAreaTecnica.setBounds(10, 207, 260, 25);
 			panel_2.add(cbxAreaTecnica);
 			
 			JLabel label_14 = new JLabel("A\u00F1os de experiencia:");
 			label_14.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_14.setBounds(280, 150, 120, 14);
+			label_14.setBounds(280, 150, 180, 14);
 			panel_2.add(label_14);
 			
 			JSpinner spnAnnosExp = new JSpinner();
+			spnAnnosExp.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 			spnAnnosExp.setBounds(472, 146, 74, 25);
 			panel_2.add(spnAnnosExp);
 			
@@ -259,7 +265,7 @@ public class CrearPostulacion extends JDialog {
 			panel_2.add(label_15);
 			
 			JComboBox cbxOficio = new JComboBox();
-			cbxOficio.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>"}));
+			cbxOficio.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Alba\u00F1il", "Asistente de tienda", "Bibliotecario", "Bombero", "Carnicero", "Carpintero", "Cartero", "Chofer", "Electricista", "Florista", "Granjero", "Jardinero", "Limpiador", "Mec\u00E1nico", "Panadero", "Peluquero", "Plomero", "Secretario", "Sastre"}));
 			cbxOficio.setEnabled(false);
 			cbxOficio.setBounds(10, 268, 260, 25);
 			panel_2.add(cbxOficio);
@@ -270,6 +276,7 @@ public class CrearPostulacion extends JDialog {
 			panel_2.add(label_16);
 			
 			JSpinner spnSalarioMin = new JSpinner();
+			spnSalarioMin.setModel(new SpinnerNumberModel(new Integer(12000), new Integer(12000), null, new Integer(1)));
 			spnSalarioMin.setBounds(280, 207, 266, 25);
 			panel_2.add(spnSalarioMin);
 			
@@ -280,7 +287,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JLabel label_17 = new JLabel("Categoria laboral:");
 			label_17.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_17.setBounds(10, 62, 108, 14);
+			label_17.setBounds(10, 62, 260, 14);
 			panel_2.add(label_17);
 			
 			JSpinner spnVencimiento = new JSpinner();
@@ -296,6 +303,7 @@ public class CrearPostulacion extends JDialog {
 			btnAnadirLista.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					auxListaOficios.add(cbxOficio.getSelectedItem().toString());
+					JOptionPane.showMessageDialog(null, "El oficio se ha agregado a la lista de oficios", "Información", JOptionPane.INFORMATION_MESSAGE);
 				}
 			});
 			
@@ -367,12 +375,16 @@ public class CrearPostulacion extends JDialog {
 					}
 					
 					if(rdbtnEducacionBasica.isSelected()) {
-						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", user,auxListaOficios);
+						Obrero auxSol = new Obrero("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLaboral.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnVencimiento.getValue(), Integer.parseInt(spnSalarioMin.getValue().toString()), Integer.parseInt(spnAnnosExp.getValue().toString()), "Enviada", user);
+						auxSol.copiarLista(auxListaOficios);
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
+					dispose();
+					CrearPostulacion list = new CrearPostulacion(user);
+					list.setVisible(true);
 				}
 			});
 			

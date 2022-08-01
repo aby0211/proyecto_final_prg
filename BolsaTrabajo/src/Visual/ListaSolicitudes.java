@@ -38,7 +38,7 @@ public class ListaSolicitudes extends JDialog {
 	private DefaultTableModel model;
 	private Object row[];
 	JButton btnVerDetalles = new JButton("Ver detalles");
-	private Oferta selected = null;
+	private Solicitud selected = null;
 
 	/**
 	 * Launch the application.
@@ -48,7 +48,7 @@ public class ListaSolicitudes extends JDialog {
 	public ListaSolicitudes() {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setTitle("Mis ofertas");
+		setTitle("Mis solicitudes");
 		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
@@ -80,7 +80,7 @@ public class ListaSolicitudes extends JDialog {
 							if(row>-1){
 								btnEliminarOferta.setEnabled(true);
 								btnVerDetalles.setEnabled(true);
-								selected = (Oferta) BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
+								selected = BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
 							}
 						}
 					});
@@ -92,7 +92,7 @@ public class ListaSolicitudes extends JDialog {
 
 			btnEliminarOferta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la oferta con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la solicitud con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if(option == JOptionPane.YES_OPTION){
 						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
 						BolsaDeTrabajo.getInstance().eliminarSolicitudGlobal(selected.getCodigo());
@@ -106,8 +106,15 @@ public class ListaSolicitudes extends JDialog {
 			panel.add(btnEliminarOferta);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					DetallesOferta list = new DetallesOferta(selected);
-					list.setVisible(true);
+					if(selected instanceof Oferta) {
+						DetallesOferta list = new DetallesOferta((Oferta)selected);
+						list.setVisible(true);	
+					}
+					if(selected instanceof Postulacion) {
+						ResumenPostulacion list = new ResumenPostulacion((Postulacion)selected);
+						list.setVisible(true);
+					}
+
 				}
 			});
 			

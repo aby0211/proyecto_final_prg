@@ -84,9 +84,11 @@ public class ListaDeUsuarios extends JDialog {
 							int row = -1;
 							row = table.getSelectedRow();
 							if(row>-1){
-								btnEliminarUsuarios.setEnabled(true);
 								btnVerDetalles.setEnabled(true);
 								selected =  BolsaDeTrabajo.getInstance().buscarUsuarioByUser(table.getValueAt(row, 0).toString());
+							}
+							if(row>0){
+								btnEliminarUsuarios.setEnabled(true);
 							}
 						}
 					});
@@ -100,10 +102,13 @@ public class ListaDeUsuarios extends JDialog {
 				public void actionPerformed(ActionEvent arg0) {
 					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el usuario con username: "+selected.getUsername() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if(option == JOptionPane.YES_OPTION){
-						//BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
-						//BolsaDeTrabajo.getInstance().buscarSolicitudEnCandidato(user, selected.getCodigo()).setEstado("Eliminada");
-						//BolsaDeTrabajo.getInstance().eliminarSolicitudEnCandidato(user, selected.getCodigo());
-						//loadTable(user);
+						BolsaDeTrabajo.getInstance().getMisUsuarios().remove(BolsaDeTrabajo.getInstance().buscarUsuarioByUser(selected.getUsername()));
+						loadTable();
+						int row = -1;
+						row=table.getSelectedRow();
+						if(row<0) {
+							btnEliminarUsuarios.setEnabled(false);
+						}
 					}
 				}
 			});

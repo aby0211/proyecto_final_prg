@@ -12,8 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
+import logico.Administrador;
 import logico.BolsaDeTrabajo;
 import logico.Candidato;
+import logico.CentroEmpleador;
 import logico.Obrero;
 import logico.Oferta;
 import logico.Postulacion;
@@ -58,12 +60,12 @@ public class ResumenPostulacion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ResumenPostulacion(Oferta oferta, Postulacion post) {
+	public ResumenPostulacion(Postulacion post) {
 		setTitle("Resumen de candidato");
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
 		setResizable(false);
-		setBounds(100, 100, 550, 545);
+		setBounds(100, 100, 550, 482);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -73,22 +75,13 @@ public class ResumenPostulacion extends JDialog {
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{
-				txtOfertaLaboral = new JTextField();
-				txtOfertaLaboral.setEditable(false);
-				txtOfertaLaboral.setColumns(10);
-				txtOfertaLaboral.setBounds(10, 36, 238, 25);
-				panel.add(txtOfertaLaboral);
-				txtOfertaLaboral.setText(oferta.getOfertaLaboral());
-			}
-			{
-				JLabel lblOfertaLaboral = new JLabel("Oferta laboral:");
-				lblOfertaLaboral.setBounds(10, 11, 144, 14);
-				panel.add(lblOfertaLaboral);
+
 			}
 			{
 				JPanel panel_1 = new JPanel();
+				panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				panel_1.setLayout(null);
-				panel_1.setBounds(10, 122, 511, 324);
+				panel_1.setBounds(10, 61, 511, 324);
 				panel.add(panel_1);
 				{
 					txtNombre = new JTextField();
@@ -160,6 +153,7 @@ public class ResumenPostulacion extends JDialog {
 					txtCE.setEditable(false);
 					txtCE.setColumns(10);
 					txtCE.setBounds(10, 158, 238, 25);
+					
 					panel_1.add(txtCE);
 				}
 				
@@ -184,6 +178,7 @@ public class ResumenPostulacion extends JDialog {
 				panel_1.add(label_1);
 				
 				JLabel lblListaDeOficios = new JLabel("Lista de oficios:");
+				lblListaDeOficios.setEnabled(false);
 				lblListaDeOficios.setFont(new Font("Tahoma", Font.PLAIN, 12));
 				lblListaDeOficios.setBounds(258, 194, 108, 14);
 				panel_1.add(lblListaDeOficios);
@@ -199,15 +194,19 @@ public class ResumenPostulacion extends JDialog {
 				if(post instanceof Universitario) {
 					txtNivelDeEstudio.setText("Universitario");
 					txtCarrera.setText(((Universitario)post).getCarrera());
+					txtAreaTécnica.setText("No disponible");
+					txtCE.setText(((Universitario)post).getCentroEducativo());
 				}
 				if(post instanceof Tecnico) {
 					txtNivelDeEstudio.setText("Técnico");
+					txtCarrera.setText("No Disponible");
 					txtAreaTécnica.setText(((Tecnico)post).getAreaTecnica());
+					txtCE.setText(((Tecnico)post).getCentroEducativo());
 				}
 				if(post instanceof Obrero) {
 					txtNivelDeEstudio.setText("Educ. Básica");
-					table.setEnabled(true);
-					loadTable(post);
+					txtCarrera.setText("No nisponible");
+					txtAreaTécnica.setText("No disponible");
 					
 				}
 
@@ -230,13 +229,9 @@ public class ResumenPostulacion extends JDialog {
 						table.setModel(model);
 						scrollPane.setViewportView(table);
 					}
-					
-					table = new JTable();
-					table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-					scrollPane.setViewportView(table);
-					table.setEnabled(false);
 					if(post instanceof Obrero) {
-						loadTable(post);
+						lblListaDeOficios.setEnabled(true);
+						loadTable((Obrero)post);
 					}
 				}
 				
@@ -246,7 +241,7 @@ public class ResumenPostulacion extends JDialog {
 			{
 				JPanel panel_1 = new JPanel();
 				panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-				panel_1.setBounds(10, 72, 511, 36);
+				panel_1.setBounds(10, 11, 511, 36);
 				panel.add(panel_1);
 				{
 					JLabel label = new JLabel("Candidato");
@@ -257,19 +252,21 @@ public class ResumenPostulacion extends JDialog {
 			{
 				JButton btnFinalizarContratacion = new JButton("Finalizar contrataci\u00F3n");
 				btnFinalizarContratacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				btnFinalizarContratacion.setBounds(354, 457, 167, 36);
+				btnFinalizarContratacion.setBounds(354, 396, 167, 36);
 				panel.add(btnFinalizarContratacion);
 			}
 			
 		}
 	}
-	private void loadTable(Postulacion post) {
+	
+	private void loadTable(Obrero post) {
 		model.setRowCount(0);
 		model.setColumnCount(1);
 		row = new Object[model.getColumnCount()];
-		for (int i = 0; i <(((Obrero)post).getOficio().size()); i++) {
-			row[0] = (((Obrero)post).getOficio().get(i)); 
+		for (int i = 0; i <post.getOficio().size(); i++) {
+			row[0] = post.getOficio().get(i);
 			model.addRow(row);
 		}
 	}
+	
 }

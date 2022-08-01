@@ -12,6 +12,8 @@ import javax.swing.border.EmptyBorder;
 import logico.BolsaDeTrabajo;
 
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Label;
@@ -99,6 +101,8 @@ public class Login extends JDialog {
 							list.setVisible(true);
 						}else {
 							lblIncorrecto.setVisible(true);
+							JOptionPane.showMessageDialog(null, "Su nombre de usuario o contraseña son incorrectos.", "Información", JOptionPane.INFORMATION_MESSAGE);
+
 						}
 					}
 				});

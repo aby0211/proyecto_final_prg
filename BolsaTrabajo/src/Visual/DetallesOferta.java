@@ -174,7 +174,7 @@ public class DetallesOferta extends JDialog {
 			JButton btnVerCandidato = new JButton("Ver candidato");
 			btnVerCandidato.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					ResumenPostulacion list=new ResumenPostulacion(oferta,(Postulacion)selected);
+					ResumenPostulacion list=new ResumenPostulacion((Postulacion)selected);
 					list.setVisible(true);
 				}
 			});

@@ -34,6 +34,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import java.awt.Dialog.ModalityType;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class CrearOferta extends JDialog {
 
@@ -44,6 +46,12 @@ public class CrearOferta extends JDialog {
 	private JSpinner spnVacantes;
 	private JSpinner spnSalario;
 	private JTextField txtOfertaLab;
+	private JComboBox cbxNivelEstudio;
+	private JComboBox cbxVariable;
+	private JComboBox cbxPeriodoPago;
+	private JComboBox cbxJornada;
+	private JComboBox cbxTipoDeContrato;
+	private JSpinner spnFechaVencimiento;
 	
 	public CrearOferta(Usuario user) {
 		setTitle("Crear oferta de trabajo");
@@ -61,15 +69,16 @@ public class CrearOferta extends JDialog {
 		lblNombreDeLa.setBounds(10, 25, 122, 14);
 		panel.add(lblNombreDeLa);
 		
-		JLabel label_1 = new JLabel("Oferta laboral");
-		label_1.setBounds(258, 56, 122, 14);
-		panel.add(label_1);
+		JLabel lblOfertaLaboral = new JLabel("Oferta laboral:");
+		lblOfertaLaboral.setBounds(258, 56, 122, 14);
+		panel.add(lblOfertaLaboral);
 		
 		txtNombre = new JTextField();
 		txtNombre.setEditable(false);
 		txtNombre.setColumns(10);
 		txtNombre.setBounds(142, 20, 238, 25);
 		txtNombre.setText(((CentroEmpleador)user).getNombreEmpresa());
+		JLabel lblCarrera = new JLabel("Carrera:");
 		panel.add(txtNombre);
 		
 		JSpinner spnVacantes = new JSpinner();
@@ -77,9 +86,9 @@ public class CrearOferta extends JDialog {
 		spnVacantes.setBounds(182, 203, 65, 25);
 		panel.add(spnVacantes);
 		
-		JLabel label_2 = new JLabel("Provincia");
-		label_2.setBounds(257, 178, 122, 14);
-		panel.add(label_2);
+		JLabel lblProvincia = new JLabel("Provincia:");
+		lblProvincia.setBounds(257, 178, 122, 14);
+		panel.add(lblProvincia);
 		
 		JComboBox cbxProvincia = new JComboBox();
 		cbxProvincia.setEnabled(false);
@@ -89,12 +98,12 @@ public class CrearOferta extends JDialog {
 		panel.add(cbxProvincia);
 		
 		JLabel label_3 = new JLabel("Cantidad de vacantes:");
-		label_3.setBounds(9, 208, 122, 14);
+		label_3.setBounds(9, 208, 163, 14);
 		panel.add(label_3);
 		
-		JLabel label_4 = new JLabel("Salario");
-		label_4.setBounds(9, 239, 122, 14);
-		panel.add(label_4);
+		JLabel lblSalario = new JLabel("Salario:");
+		lblSalario.setBounds(9, 239, 122, 14);
+		panel.add(lblSalario);
 		
 		JSpinner spnSalario = new JSpinner();
 		spnSalario.setModel(new SpinnerNumberModel(new Integer(12000), new Integer(12000), null, new Integer(1)));
@@ -106,9 +115,9 @@ public class CrearOferta extends JDialog {
 		cbxPeriodoPago.setBounds(256, 264, 239, 25);
 		panel.add(cbxPeriodoPago);
 		
-		JLabel label_5 = new JLabel("Periodo de pago");
-		label_5.setBounds(257, 239, 122, 14);
-		panel.add(label_5);
+		JLabel lblPeriodoDePago = new JLabel("Periodo de pago:");
+		lblPeriodoDePago.setBounds(257, 239, 122, 14);
+		panel.add(lblPeriodoDePago);
 		
 		JComboBox cbxJornada = new JComboBox();
 		cbxJornada.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Tiempo completo", "Medio tiempo"}));
@@ -120,30 +129,51 @@ public class CrearOferta extends JDialog {
 		cbxTipoDeContrato.setBounds(257, 325, 239, 25);
 		panel.add(cbxTipoDeContrato);
 		
-		JLabel label_6 = new JLabel("Tipo de contrato");
-		label_6.setBounds(257, 300, 122, 14);
-		panel.add(label_6);
+		JLabel lblTipoDeContrato = new JLabel("Tipo de contrato:");
+		lblTipoDeContrato.setBounds(257, 300, 122, 14);
+		panel.add(lblTipoDeContrato);
 		
-		JLabel label_7 = new JLabel("Jornada");
-		label_7.setBounds(10, 300, 122, 14);
-		panel.add(label_7);
+		JLabel lblJornada = new JLabel("Jornada:");
+		lblJornada.setBounds(10, 300, 122, 14);
+		panel.add(lblJornada);
 		JSpinner spnFechaVencimiento = new JSpinner();
-		JLabel label_8 = new JLabel("Fecha de vencimiento");
-		label_8.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		label_8.setBounds(9, 361, 136, 14);
-		panel.add(label_8);
+		JLabel lblFechaDeVencimiento = new JLabel("Fecha de vencimiento:");
+		lblFechaDeVencimiento.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblFechaDeVencimiento.setBounds(9, 361, 136, 14);
+		panel.add(lblFechaDeVencimiento);
 		JComboBox cbxCategoriaLab = new JComboBox();
 		cbxCategoriaLab.setEnabled(false);
 		JButton button = new JButton("Crear oferta");
 		JComboBox cbxNivelEstudio = new JComboBox();
+		JComboBox cbxVariable = new JComboBox();
+		cbxVariable.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administraci\u00F3n hotelera", "Arquitectura", "Comunicaci\u00F3n social", "Derecho", "Dise\u00F1o e interiorismo", "Econom\u00EDa", "Eduaci\u00F3n", "Estomatolog\u00EDa", "Filosof\u00EDa", "Gesti\u00F3n financiera", "Ingenier\u00EDa civil", "Ingenieria m\u00E9canica", "Ingenier\u00EDa el\u00E9ctrica", "Ingenier\u00EDa industrial", "Ingenier\u00EDa mecatr\u00F3nica", "Ingenier\u00EDa de ciencias de la computaci\u00F3n", "Ingenier\u00EDa telem\u00E1tica", "Ingenier\u00EDa Ambiental", "Medic\u00EDna", "Marketing", "Nutrici\u00F3n", "Psicolog\u00EDa", "Terapia f\u00EDsica", "Trabajo social", "Hospitalidad y turismo"}));
+		cbxNivelEstudio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				if(cbxNivelEstudio.getSelectedItem().toString().equalsIgnoreCase("Universitario")) {
+					cbxVariable.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Administraci\u00F3n hotelera", "Arquitectura", "Comunicaci\u00F3n social", "Derecho", "Dise\u00F1o e interiorismo", "Econom\u00EDa", "Eduaci\u00F3n", "Estomatolog\u00EDa", "Filosof\u00EDa", "Gesti\u00F3n financiera", "Ingenier\u00EDa civil", "Ingenieria m\u00E9canica", "Ingenier\u00EDa el\u00E9ctrica", "Ingenier\u00EDa industrial", "Ingenier\u00EDa mecatr\u00F3nica", "Ingenier\u00EDa de ciencias de la computaci\u00F3n", "Ingenier\u00EDa telem\u00E1tica", "Ingenier\u00EDa Ambiental", "Medic\u00EDna", "Marketing", "Nutrici\u00F3n", "Psicolog\u00EDa", "Terapia f\u00EDsica", "Trabajo social", "Hospitalidad y turismo"}));
+					lblCarrera.setText("Carrera:");
+				}
+				if(cbxNivelEstudio.getSelectedItem().toString().equalsIgnoreCase("Educación Básica")) {
+					cbxVariable.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Alba\u00F1il", "Asistente de tienda", "Bibliotecario", "Bombero", "Carnicero", "Carpintero", "Cartero", "Chofer", "Electricista", "Florista", "Granjero", "Jardinero", "Limpiador", "Mec\u00E1nico", "Panadero", "Peluquero", "Plomero", "Secretario", "Sastre"}));
+					lblCarrera.setText("Oficio:");
+				}
+				if(cbxNivelEstudio.getSelectedItem().toString().equalsIgnoreCase("Técnico")) {
+					cbxVariable.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Automatizaci\u00F3n", "Artes culinarias", "Admistracion de empresas", "Dise\u00F1o gr\u00E1fico", "Enfermer\u00EDa", "Gesti\u00F3n social", "Logistica integral", "Microfinanzas", "Mercado", "Programaci\u00F3n web", "Publicidad", "Redes de datos"}));
+					lblCarrera.setText("Área técnica:");
+				}
+			}
+		});
+		
+			
 		txtOfertaLab = new JTextField();
-		cbxNivelEstudio.setModel(new DefaultComboBoxModel(new String[] {"Universitario", "T\u00E9cnico", "Educaci\u00F3n b\u00E1sica"}));
+		cbxNivelEstudio.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "Universitario", "T\u00E9cnico", "Educaci\u00F3n b\u00E1sica"}));
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Oferta auxOferta = new Oferta("CS-"+BolsaDeTrabajo.getInstance().getIdSolicitud(), cbxCategoriaLab.getSelectedItem().toString(), txtOfertaLab.getText(), cbxNivelEstudio.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), (Date)spnFechaVencimiento.getValue(), Integer.parseInt(spnVacantes.getValue().toString()), cbxJornada.getSelectedItem().toString(), Integer.parseInt(spnSalario.getValue().toString()), cbxTipoDeContrato.getSelectedItem().toString(), cbxPeriodoPago.getSelectedItem().toString(), ((CentroEmpleador)user), "Disponible");
 				((CentroEmpleador)user).getMisOfertas().add(auxOferta);
 				BolsaDeTrabajo.getInstance().aumentarCodSol();
 				BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxOferta);
+				clean();
 				JOptionPane.showMessageDialog(null, "La oferta se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
@@ -157,7 +187,7 @@ public class CrearOferta extends JDialog {
 		panel.add(spnFechaVencimiento);
 		
 		JLabel lblCategoriaLaboral = new JLabel("Categoria laboral:");
-		lblCategoriaLaboral.setBounds(10, 56, 122, 14);
+		lblCategoriaLaboral.setBounds(10, 56, 238, 14);
 		panel.add(lblCategoriaLaboral);
 		
 		
@@ -171,12 +201,35 @@ public class CrearOferta extends JDialog {
 		panel.add(cbxNivelEstudio);
 		
 		JLabel lblNivelDeEstudio = new JLabel("Nivel de estudio requerido:");
-		lblNivelDeEstudio.setBounds(9, 117, 137, 14);
+		lblNivelDeEstudio.setBounds(9, 117, 238, 14);
 		panel.add(lblNivelDeEstudio);
 		
 		txtOfertaLab.setText((String) null);
 		txtOfertaLab.setColumns(10);
 		txtOfertaLab.setBounds(258, 81, 238, 25);
 		panel.add(txtOfertaLab);
+		
+		 
+		lblCarrera.setBounds(257, 117, 137, 14);
+		panel.add(lblCarrera);
+		
+		
+		cbxVariable.setBounds(257, 142, 239, 25);
+		panel.add(cbxVariable);
+	}
+	
+	private void clean() {
+		txtOfertaLab.setText("");
+		cbxNivelEstudio.setSelectedIndex(0);
+		cbxVariable.setSelectedIndex(0);
+		spnVacantes.setValue(Integer.parseInt("1"));
+		spnSalario.setValue(Integer.parseInt("12,000"));
+		cbxJornada.setSelectedIndex(0);
+		cbxPeriodoPago.setSelectedIndex(0);
+		cbxTipoDeContrato.setSelectedIndex(0);
+		spnFechaVencimiento.setValue(new Date());
+		
+		
+		
 	}
 }

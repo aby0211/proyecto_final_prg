@@ -135,6 +135,9 @@ public class Registrar extends JDialog {
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
 						JOptionPane.showMessageDialog(null, "Usuario registrado como adminsitrador exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
+					dispose();
+					Registrar list=new Registrar();
+					list.setVisible(true);
 				}
 				
 				

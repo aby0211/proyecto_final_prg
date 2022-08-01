@@ -43,6 +43,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal(Usuario user) {
+		setTitle("Bolsa de trabajo");
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 883, 600);
@@ -55,7 +56,7 @@ public class Principal extends JFrame {
 		JMenu btnEmpresa = new JMenu("Empresa");
 		menuBar.add(btnEmpresa);
 		
-		JMenuItem btnMisOfertas = new JMenuItem("Mis Ofertas");
+		JMenuItem btnMisOfertas = new JMenuItem("Lista de ofertas");
 		btnMisOfertas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				MisOfertas list = new MisOfertas(((CentroEmpleador)user));
@@ -183,7 +184,7 @@ public class Principal extends JFrame {
 		panel_1.add(lblNewLabel);
 		
 		JLabel imageLogin = new JLabel("");
-		imageLogin.setBounds(20, 36, 837, 359);
+		imageLogin.setBounds(30, 36, 837, 359);
 		panel.add(imageLogin);
 		setLocationRelativeTo(null);
 		if(user instanceof Administrador) {
