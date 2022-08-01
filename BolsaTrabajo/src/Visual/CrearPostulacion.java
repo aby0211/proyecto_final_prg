@@ -407,6 +407,11 @@ public class CrearPostulacion extends JDialog {
 			}else {
 				rdbtnVehiculoNo.setSelected(true);
 			}
+			if(!user.isEmpleado()) {
+				JOptionPane.showMessageDialog(null, "No puede crear más postulaciones ya que actualmente esta empleado", "Información", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+
+			}
 			
 			
 			

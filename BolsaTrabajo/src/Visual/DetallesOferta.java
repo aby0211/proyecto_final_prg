@@ -45,7 +45,7 @@ public class DetallesOferta extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
-	private Solicitud selected=null;
+	private Postulacion selected=null;
 
 	/**
 	 * Launch the application.
@@ -54,11 +54,11 @@ public class DetallesOferta extends JDialog {
 	 * Create the dialog.
 	 */
 	public DetallesOferta(Oferta oferta) {
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		
 		setTitle("Detalles de oferta");
-		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setModal(true);
-		setBounds(100, 100, 780, 407);
+		setBounds(100, 100, 780, 461);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -163,26 +163,21 @@ public class DetallesOferta extends JDialog {
 			panel_1.setBounds(10, 211, 734, 32);
 			panel.add(panel_1);
 			
-			JLabel lblCandidatoQueMejor = new JLabel("Candidato que mejor se adapta a la oferta");
+			JLabel lblCandidatoQueMejor = new JLabel("Candidatos que mejor se adaptan a la oferta");
 			lblCandidatoQueMejor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			panel_1.add(lblCandidatoQueMejor);
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBounds(10, 254, 734, 49);
+			panel_2.setBounds(10, 254, 734, 103);
 			panel.add(panel_2);
 			panel_2.setLayout(new BorderLayout(0, 0));
 			JButton btnVerCandidato = new JButton("Ver candidato");
-			btnVerCandidato.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					ResumenPostulacion list=new ResumenPostulacion((Postulacion)selected);
-					list.setVisible(true);
-				}
-			});
+
 			JScrollPane scrollPane = new JScrollPane();
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			panel_2.add(scrollPane, BorderLayout.CENTER);
 			{
-				String headers[] = {"Codigo de postulacion", "Oferta laboral","Codigo del candidato", "Nombre del candidato"};
+				String headers[] = {"Codigo", "Estado de postulacion","Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
 				model = new DefaultTableModel();
 				model.setColumnIdentifiers(headers);
 				table = new JTable();
@@ -194,7 +189,7 @@ public class DetallesOferta extends JDialog {
 						row = table.getSelectedRow();
 						if(row>-1){
 							btnVerCandidato.setEnabled(true);
-							selected = ((Solicitud)BolsaDeTrabajo.getInstance().buscarPostulacionByCodigo(table.getValueAt(row, 1).toString()));
+							selected = (Postulacion) BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(table.getValueAt(row, 0).toString());
 						}
 					}
 				});
@@ -203,11 +198,11 @@ public class DetallesOferta extends JDialog {
 			}
 			
 			btnVerCandidato.setFont(new Font("Tahoma", Font.PLAIN, 14));
-			btnVerCandidato.setEnabled(true);
+			btnVerCandidato.setEnabled(false);
 			if(oferta.getEstado().equalsIgnoreCase("Expirada")) {
 				btnVerCandidato.setEnabled(false);
 			}
-			btnVerCandidato.setBounds(565, 314, 179, 33);
+			btnVerCandidato.setBounds(565, 368, 179, 33);
 			panel.add(btnVerCandidato);
 			
 			txtOfertaLab.setText(oferta.getOfertaLaboral());
@@ -220,21 +215,35 @@ public class DetallesOferta extends JDialog {
 			txtTipoContrato.setText(oferta.getTipoContrato());
 			txtFechaVencimiento.setText(oferta.getFechaVencimiento().toString());
 			
-			loadTable();
+			loadTable(oferta);
+			btnVerCandidato.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					ResumenPostulacion list = new ResumenPostulacion(oferta,selected,1);
+					list.setVisible(true);
+				}
+			});
 		}
 		
 		
 	}
 	
-	private void loadTable() {
+	private void loadTable(Oferta oferta) {
 		model.setRowCount(0);
-		model.setColumnCount(3);
+		model.setColumnCount(5);
+		if(oferta.getMisPostulaciones().size()<oferta.getCantVacantes()) {
+			BolsaDeTrabajo.getInstance().algoritmoBuscarMejorCandidato(oferta);
+		}
+		
 		row = new Object[model.getColumnCount()];
-		//for (int i = 0; i < Habana.getInstance().getMisFacturas().size(); i++) {
-			//row[0] = Habana.getInstance().getMisFacturas().get(i).getCodigo();
-			//row[1] = String.valueOf(Habana.getInstance().getMisFacturas().get(i).precioTotalFactura());
-			//model.addRow(row);
-		//}
+		for (int i = 0; i < oferta.getMisPostulaciones().size(); i++) {
+			
+			row[0] = oferta.getMisPostulaciones().get(i).getCodigo();
+			row[1] = oferta.getMisPostulaciones().get(i).getMiCandidato().getNombre();
+			row[2] = oferta.getMisPostulaciones().get(i).getMiCandidato().getSexo();
+			row[3] = oferta.getMisPostulaciones().get(i).getMiCandidato().getProvincia();
+			row[4] = oferta.getMisPostulaciones().get(i).getMiCandidato().getTelefono();
+			model.addRow(row);
+		}
 
 	}
 }

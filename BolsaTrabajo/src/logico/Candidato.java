@@ -41,5 +41,11 @@ public class Candidato extends Usuario {
 		return empleado;
 	}
 
+	public void setEmpleado(boolean empleado) {
+		this.empleado = empleado;
+	}
+	
+	
+
 	
 }

@@ -44,6 +44,7 @@ public class ListaPostulaciones extends JDialog {
 	private Object row[];
 	JButton btnVerDetalles = new JButton("Ver detalles");
 	private Postulacion selected = null;
+	
 
 	/**
 	 * Launch the application.
@@ -72,7 +73,7 @@ public class ListaPostulaciones extends JDialog {
 				scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 				panel.add(scrollPane);
 				{
-					String headers[] = {"Codigo", "Estado de oferta","Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
+					String headers[] = {"Codigo", "Estado de postulacion","Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
 					model = new DefaultTableModel();
 					model.setColumnIdentifiers(headers);
 					table = new JTable();
@@ -113,7 +114,7 @@ public class ListaPostulaciones extends JDialog {
 			panel.add(btnEliminarOferta);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					ResumenPostulacion list = new ResumenPostulacion(selected);
+					ResumenPostulacion list = new ResumenPostulacion(null,selected,0);
 					list.setVisible(true);
 				}
 			});

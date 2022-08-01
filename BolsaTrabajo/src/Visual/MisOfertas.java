@@ -133,7 +133,7 @@ public class MisOfertas extends JDialog {
 			}
 			row[2] = (((Oferta)centro.getMisOfertas().get(i)).getEstado());
 			row[3] = (((Oferta)centro.getMisOfertas().get(i)).getCantVacantes());
-			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getMisCandidatos().size());
+			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getMisPostulaciones().size());
 			row[5] = (((Oferta)centro.getMisOfertas().get(i)).getFechaVencimiento());
 			model.addRow(row);
 		}

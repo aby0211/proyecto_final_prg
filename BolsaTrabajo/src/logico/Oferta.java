@@ -13,10 +13,15 @@ public class Oferta extends Solicitud {
 	private String tipoContrato;
 	private String periodoCobro;
 	private CentroEmpleador miCentro;
-	private ArrayList<Candidato> misCandidatos;
+	private ArrayList<Postulacion> misPostulaciones;
+	private int porcientoMatch;
+	private int annosExperiencia;
+	private String habilidadRequerida;
 	
-	public Oferta(String codigo, String categoriaLaboral,String ofertaLaboral,String nivelEstudioReq, String provincia, Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato, String periodoCobro, CentroEmpleador miCentro, String estado) {
+	public Oferta(String codigo, String categoriaLaboral,String ofertaLaboral,String nivelEstudioReq, String provincia, Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato, String periodoCobro, CentroEmpleador miCentro, String estado,int porcientoMatch,int annosExperiencia,String habilidadRequerida) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento,estado);
+		this.annosExperiencia=annosExperiencia;
+		this.habilidadRequerida=habilidadRequerida;
 		this.cantVacantes=cantVacantes;
 		this.ofertaLaboral=ofertaLaboral;
 		this.nivelEstudioReq=nivelEstudioReq;
@@ -25,7 +30,8 @@ public class Oferta extends Solicitud {
 		this.tipoContrato=tipoContrato;
 		this.periodoCobro=periodoCobro;
 		this.miCentro=miCentro;
-		this.misCandidatos=new ArrayList<Candidato>();
+		this.misPostulaciones=new ArrayList<Postulacion>();
+		this.porcientoMatch=porcientoMatch;
 	}
 
 	public int getCantVacantes() {
@@ -56,13 +62,28 @@ public class Oferta extends Solicitud {
 		return miCentro;
 	}
 
-	public ArrayList<Candidato> getMisCandidatos() {
-		return misCandidatos;
+	public ArrayList<Postulacion> getMisPostulaciones() {
+		return misPostulaciones;
+	}
+
+	public int getPorcientoMatch() {
+		return porcientoMatch;
 	}
 
 	public String getOfertaLaboral() {
 		return ofertaLaboral;
 	}
+
+	public int getAnnosExperiencia() {
+		return annosExperiencia;
+	}
+
+	public String getHabilidadRequerida() {
+		return habilidadRequerida;
+	}
 	
+	public void disminuirCantVacantes() {
+		cantVacantes--;
+	}
 
 }

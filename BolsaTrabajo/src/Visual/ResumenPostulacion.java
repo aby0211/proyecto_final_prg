@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.EtchedBorder;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,6 +36,8 @@ import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class ResumenPostulacion extends JDialog {
 
@@ -51,6 +54,7 @@ public class ResumenPostulacion extends JDialog {
 	private JTable table;
 	private DefaultTableModel model;
 	private Object row[];
+	
 
 	/**
 	 * Launch the application.
@@ -60,12 +64,12 @@ public class ResumenPostulacion extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ResumenPostulacion(Postulacion post) {
-		setTitle("Resumen de candidato");
-		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
-		setModal(true);
+	public ResumenPostulacion(Oferta oferta,Postulacion post, int modo) {
+		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		setResizable(false);
-		setBounds(100, 100, 550, 482);
+		setTitle("Resumen de candidato");
+		setModal(true);
+		setBounds(100, 100, 550, 486);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -251,10 +255,25 @@ public class ResumenPostulacion extends JDialog {
 			}
 			{
 				JButton btnFinalizarContratacion = new JButton("Finalizar contrataci\u00F3n");
+				btnFinalizarContratacion.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						BolsaDeTrabajo.getInstance().confirmarContratacion(oferta, post);
+						BolsaDeTrabajo.getInstance().guardarBolsa();
+						JOptionPane.showMessageDialog(null, "La contratación se ha realizado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+					}
+				});
 				btnFinalizarContratacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				btnFinalizarContratacion.setBounds(354, 396, 167, 36);
 				panel.add(btnFinalizarContratacion);
+				if(modo==1) {
+					btnFinalizarContratacion.setVisible(true);
+					setBounds(100, 100, 550, 486);
+				}else if(modo==0){
+					setBounds(100, 100, 550, 460);
+					btnFinalizarContratacion.setVisible(false);
+				}
 			}
+			
 			
 		}
 	}

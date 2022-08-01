@@ -112,7 +112,7 @@ public class ListaSolicitudes extends JDialog {
 						list.setVisible(true);	
 					}
 					if(selected instanceof Postulacion) {
-						ResumenPostulacion list = new ResumenPostulacion((Postulacion)selected);
+						ResumenPostulacion list = new ResumenPostulacion(null,(Postulacion)selected,1);
 						list.setVisible(true);
 					}
 
