@@ -113,8 +113,8 @@ public class ListaPostulaciones extends JDialog {
 			panel.add(btnEliminarOferta);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					//DetallesOferta list = new DetallesOferta(selected);
-					//list.setVisible(true);
+					ResumenPostulacion list = new ResumenPostulacion(selected);
+					list.setVisible(true);
 				}
 			});
 			

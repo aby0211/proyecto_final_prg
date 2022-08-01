@@ -147,52 +147,6 @@ public class Principal extends JFrame {
 		
 		JMenuItem btnReporte3 = new JMenuItem("Reporte 3");
 		btnReporte.add(btnReporte3);
-		
-		JMenu mnRespaldo = new JMenu("Respaldo");
-		mnRespaldo.setVisible(false);
-		menuBar.add(mnRespaldo);
-		
-		JMenuItem mntmHacerRespaldo = new JMenuItem("Hacer respaldo");
-		mntmHacerRespaldo.setEnabled(false);
-		mntmHacerRespaldo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				/*Socket socket = null;
-				InputStream in = null;
-				OutputStream out = null;
-
-				try {
-					socket = new Socket("0.0.0.0",0000);
-					in = new FileInputStream("Bolsa.dat");
-					out = socket.getOutputStream();
-				} catch (FileNotFoundException err) {
-					JOptionPane.showMessageDialog(null, "No existe data para realizar un respaldo", "Respaldo Fallido",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (UnknownHostException uhe) {
-					JOptionPane.showMessageDialog(null, "No existe data para realizar un respaldo", "Respaldo Fallido",
-							JOptionPane.ERROR_MESSAGE);
-				} catch (IOException ioe) {
-					ioe.printStackTrace();
-				}
-
-				try {
-					int count;
-					byte[] bytes = new byte[8192];
-					while ((count = in.read(bytes)) > 0) {
-						out.write(bytes, 0, count);
-					}
-
-					out.close();
-					in.close();
-					socket.close();
-
-					JOptionPane.showMessageDialog(null, "Respaldo guardado en la carpeta", "Respaldo hecho",
-							JOptionPane.INFORMATION_MESSAGE);
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}*/
-			}
-		});
-		mnRespaldo.add(mntmHacerRespaldo);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -244,7 +198,7 @@ public class Principal extends JFrame {
 		if(user instanceof Administrador) {
 			btnEmpresa.setEnabled(false);
 			btnCandadito.setEnabled(false);
-			mnRespaldo.setEnabled(true);
+			
 			
 		}
 		
@@ -254,7 +208,7 @@ public class Principal extends JFrame {
 			btnUsuario.setEnabled(false);
 			btnReporte.setEnabled(false);
 			btnSolicitud.setEnabled(false);
-			mnRespaldo.setEnabled(false);
+			
 		}
 		
 		if(user instanceof Candidato) {
@@ -263,7 +217,7 @@ public class Principal extends JFrame {
 			btnUsuario.setEnabled(false);
 			btnReporte.setEnabled(false);
 			btnSolicitud.setEnabled(false);
-			mnRespaldo.setEnabled(false);
+			
 
 		}
 		
