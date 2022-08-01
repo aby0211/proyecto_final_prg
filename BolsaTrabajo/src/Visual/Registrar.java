@@ -227,7 +227,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblNombreApellido.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNombreApellido.setBounds(10, 11, 127, 14);
+			lblNombreApellido.setBounds(10, 11, 169, 14);
 			panel_1.add(lblNombreApellido);
 			
 			
@@ -240,9 +240,9 @@ public class Registrar extends JDialog {
 			txtUsername.setBounds(10, 97, 260, 25);
 			panel_1.add(txtUsername);
 			
-			JLabel Username = new JLabel("Username");
+			JLabel Username = new JLabel("Nombre de usuario:");
 			Username.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			Username.setBounds(10, 72, 108, 14);
+			Username.setBounds(10, 72, 260, 14);
 			panel_1.add(Username);
 			
 			JLabel lblContrasea = new JLabel("Contrase\u00F1a:");
@@ -317,7 +317,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblRangoSalarioMinimo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblRangoSalarioMinimo.setBounds(10, 47, 132, 14);
+			lblRangoSalarioMinimo.setBounds(10, 47, 197, 14);
 			panel_2.add(lblRangoSalarioMinimo);
 			
 			
@@ -327,7 +327,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblVehiculoPropio.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblVehiculoPropio.setBounds(285, 12, 152, 14);
+			lblVehiculoPropio.setBounds(285, 12, 167, 14);
 			panel_2.add(lblVehiculoPropio);
 			rdbtnViajar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			rdbtnViajar.setBounds(458, 7, 92, 23);
@@ -335,7 +335,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblVehiculo.setBounds(10, 12, 132, 14);
+			lblVehiculo.setBounds(10, 12, 167, 14);
 			panel_2.add(lblVehiculo);
 			rdbtnVehiculo.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			rdbtnVehiculo.setBounds(183, 7, 92, 23);
@@ -348,7 +348,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblNombreEmpresa.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblNombreEmpresa.setBounds(10, 12, 127, 14);
+			lblNombreEmpresa.setBounds(10, 12, 167, 14);
 			panel_2.add(lblNombreEmpresa);
 			
 			

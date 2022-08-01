@@ -174,7 +174,7 @@ public class CrearOferta extends JDialog {
 				BolsaDeTrabajo.getInstance().aumentarCodSol();
 				BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxOferta);
 				BolsaDeTrabajo.getInstance().guardarBolsa();
-				clean();
+				//clean();
 				JOptionPane.showMessageDialog(null, "La oferta se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 				
 			}

@@ -148,10 +148,12 @@ public class Principal extends JFrame {
 		JMenuItem btnReporte3 = new JMenuItem("Reporte 3");
 		btnReporte.add(btnReporte3);
 		
-		JMenu mnNewMenu = new JMenu("Respaldo");
-		menuBar.add(mnNewMenu);
+		JMenu mnRespaldo = new JMenu("Respaldo");
+		mnRespaldo.setVisible(false);
+		menuBar.add(mnRespaldo);
 		
 		JMenuItem mntmHacerRespaldo = new JMenuItem("Hacer respaldo");
+		mntmHacerRespaldo.setEnabled(false);
 		mntmHacerRespaldo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				/*Socket socket = null;
@@ -190,7 +192,7 @@ public class Principal extends JFrame {
 				}*/
 			}
 		});
-		mnNewMenu.add(mntmHacerRespaldo);
+		mnRespaldo.add(mntmHacerRespaldo);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -242,6 +244,8 @@ public class Principal extends JFrame {
 		if(user instanceof Administrador) {
 			btnEmpresa.setEnabled(false);
 			btnCandadito.setEnabled(false);
+			mnRespaldo.setEnabled(true);
+			
 		}
 		
 		if(user instanceof CentroEmpleador) {
@@ -250,6 +254,7 @@ public class Principal extends JFrame {
 			btnUsuario.setEnabled(false);
 			btnReporte.setEnabled(false);
 			btnSolicitud.setEnabled(false);
+			mnRespaldo.setEnabled(false);
 		}
 		
 		if(user instanceof Candidato) {
@@ -258,6 +263,8 @@ public class Principal extends JFrame {
 			btnUsuario.setEnabled(false);
 			btnReporte.setEnabled(false);
 			btnSolicitud.setEnabled(false);
+			mnRespaldo.setEnabled(false);
+
 		}
 		
 		Image img = new ImageIcon(this.getClass().getResource("/Untitled-2.png")).getImage();

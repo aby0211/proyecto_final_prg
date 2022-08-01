@@ -105,7 +105,7 @@ public class CrearPostulacion extends JDialog {
 			
 			JLabel label_4 = new JLabel("Provincia:");
 			label_4.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			label_4.setBounds(10, 72, 108, 14);
+			label_4.setBounds(10, 72, 139, 14);
 			panel_1.add(label_4);
 			
 			JLabel label_5 = new JLabel("G\u00E9nero:");
