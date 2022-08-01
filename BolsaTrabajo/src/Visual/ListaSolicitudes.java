@@ -96,6 +96,7 @@ public class ListaSolicitudes extends JDialog {
 					if(option == JOptionPane.YES_OPTION){
 						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
 						BolsaDeTrabajo.getInstance().eliminarSolicitudGlobal(selected.getCodigo());
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						loadTable();
 					}
 				}

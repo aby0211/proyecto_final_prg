@@ -1,8 +1,10 @@
 package logico;
 
-public abstract class Usuario {
+import java.io.Serializable;
 
-	
+public abstract class Usuario implements Serializable{
+
+	private static final long serialVersionUID = 2709757328464730776L;
 	protected String nombre;
 	protected String cedula;
 	protected String sexo;

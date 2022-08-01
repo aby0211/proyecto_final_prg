@@ -121,6 +121,7 @@ public class Login extends JDialog {
 			panel.add(imageLogin);
 			Image img = new ImageIcon(this.getClass().getResource("/Untitled-1.png")).getImage();
 			imageLogin.setIcon(new ImageIcon(img));
+			BolsaDeTrabajo.getInstance().cargarBolsa();
 		}
 	}
 }

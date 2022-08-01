@@ -1,8 +1,10 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class Solicitud {
+public abstract class Solicitud implements Serializable {
+	private static final long serialVersionUID = -17876355794681696L;
 	protected String codigo;
 	protected String categoriaLaboral;
 	protected String provincia;

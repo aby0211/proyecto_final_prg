@@ -17,6 +17,7 @@ import java.awt.Color;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.LineBorder;
@@ -25,6 +26,13 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.MouseMotionAdapter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.ActionListener;
@@ -139,6 +147,50 @@ public class Principal extends JFrame {
 		
 		JMenuItem btnReporte3 = new JMenuItem("Reporte 3");
 		btnReporte.add(btnReporte3);
+		
+		JMenu mnNewMenu = new JMenu("Respaldo");
+		menuBar.add(mnNewMenu);
+		
+		JMenuItem mntmHacerRespaldo = new JMenuItem("Hacer respaldo");
+		mntmHacerRespaldo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				/*Socket socket = null;
+				InputStream in = null;
+				OutputStream out = null;
+
+				try {
+					socket = new Socket("0.0.0.0",0000);
+					in = new FileInputStream("Bolsa.dat");
+					out = socket.getOutputStream();
+				} catch (FileNotFoundException err) {
+					JOptionPane.showMessageDialog(null, "No existe data para realizar un respaldo", "Respaldo Fallido",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (UnknownHostException uhe) {
+					JOptionPane.showMessageDialog(null, "No existe data para realizar un respaldo", "Respaldo Fallido",
+							JOptionPane.ERROR_MESSAGE);
+				} catch (IOException ioe) {
+					ioe.printStackTrace();
+				}
+
+				try {
+					int count;
+					byte[] bytes = new byte[8192];
+					while ((count = in.read(bytes)) > 0) {
+						out.write(bytes, 0, count);
+					}
+
+					out.close();
+					in.close();
+					socket.close();
+
+					JOptionPane.showMessageDialog(null, "Respaldo guardado en la carpeta", "Respaldo hecho",
+							JOptionPane.INFORMATION_MESSAGE);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}*/
+			}
+		});
+		mnNewMenu.add(mntmHacerRespaldo);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

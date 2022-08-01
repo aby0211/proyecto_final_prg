@@ -102,6 +102,7 @@ public class ListaPostulaciones extends JDialog {
 						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
 						BolsaDeTrabajo.getInstance().buscarSolicitudEnCandidato(user, selected.getCodigo()).setEstado("Eliminada");
 						BolsaDeTrabajo.getInstance().eliminarSolicitudEnCandidato(user, selected.getCodigo());
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						loadTable(user);
 					}
 				}

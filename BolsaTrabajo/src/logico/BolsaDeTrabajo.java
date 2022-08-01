@@ -1,13 +1,20 @@
 package logico;
 
 import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 
-public class BolsaDeTrabajo {
+public class BolsaDeTrabajo implements Serializable{
 
 	private ArrayList<Usuario> misUsuarios;
 	private ArrayList<Solicitud> misSolicitudes;
 	private int idSolicitud;
 	private static BolsaDeTrabajo bolsa = null;
+	private static final long serialVersionUID = -6634036610616475881L;
 	public BolsaDeTrabajo() {
 		super();
 		this.misUsuarios = new ArrayList<Usuario>();
@@ -48,6 +55,40 @@ public class BolsaDeTrabajo {
 		return match;
 	}
 
+	public static void setInstanciaGlobal(BolsaDeTrabajo bolsa) {
+		BolsaDeTrabajo.bolsa = bolsa;
+	}
+	
+	//Fichero
+	
+	public void cargarBolsa()  {
+		FileInputStream file;
+		ObjectInputStream oos;
+		try {
+			file = new FileInputStream("Bolsa.dat");
+			oos = new ObjectInputStream(file);
+			BolsaDeTrabajo.setInstanciaGlobal((BolsaDeTrabajo)oos.readObject());
+			oos.close();
+		} catch(IOException | ClassNotFoundException e) 
+		{
+			BolsaDeTrabajo.getInstance().guardarBolsa();
+		}
+	}
+
+	public void guardarBolsa() {
+	FileOutputStream file;
+	try {
+		file = new FileOutputStream("Bolsa.dat");
+		ObjectOutputStream oos = new ObjectOutputStream(file);
+		oos.writeObject(BolsaDeTrabajo.getInstance());
+		oos.close();
+	} catch(IOException e)
+	{
+		e.printStackTrace();
+	}
+	
+	//Metodos buscar
+	}
 	public Usuario buscarUsuarioByUser(String username) {
 		int i = 0;
 		Usuario auxUsuario=null;
@@ -105,7 +146,6 @@ public class BolsaDeTrabajo {
 		return solicitud;
 	}
 	
-
 	
 	public Solicitud buscarSolicitudEnCandidato(Candidato user, String codigo) {
 		Solicitud solicitud = null;
@@ -139,13 +179,15 @@ public class BolsaDeTrabajo {
 		idSolicitud++;
 	}
 	
+	//Metodos eliminar
+	
 	public void eliminarSolicitudEnCandidato(Candidato user,String codigo) {
 		if(buscarSolicitudEnCandidato(user, codigo)!=null) {
 			user.getMisPostulaciones().remove(buscarSolicitudEnCandidato(user, codigo));
 		}
 	}
 	
-	public void eliminarSolicitudEnCandidato(CentroEmpleador user,String codigo) {
+	public void eliminarSolicitudEnEmpresa(CentroEmpleador user,String codigo) {
 		if(buscarSolicitudEnEmpresa(user, codigo)!=null) {
 			user.getMisOfertas().remove(buscarSolicitudEnEmpresa(user, codigo));
 		}

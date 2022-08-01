@@ -94,7 +94,8 @@ public class MisOfertas extends JDialog {
 					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la oferta con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if(option == JOptionPane.YES_OPTION){
 						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
-						//BolsaDeTrabajo.getInstance().eliminarSolicitudEnEmpresa(centro.getEmail(), selected.getCodigo());
+						BolsaDeTrabajo.getInstance().eliminarSolicitudEnEmpresa(centro, selected.getCodigo());
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						loadTable(centro);
 					}
 				}

@@ -103,6 +103,7 @@ public class ListaDeUsuarios extends JDialog {
 					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el usuario con username: "+selected.getUsername() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
 					if(option == JOptionPane.YES_OPTION){
 						BolsaDeTrabajo.getInstance().getMisUsuarios().remove(BolsaDeTrabajo.getInstance().buscarUsuarioByUser(selected.getUsername()));
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						loadTable();
 						int row = -1;
 						row=table.getSelectedRow();

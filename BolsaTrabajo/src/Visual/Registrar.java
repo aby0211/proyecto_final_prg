@@ -121,18 +121,21 @@ public class Registrar extends JDialog {
 						
 						CentroEmpleador auxUsuario = new CentroEmpleador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), txtNombreEmpresa.getText(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), txtRNC.getText(), cbxCategoriaLaboral.getSelectedItem().toString());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como empleador exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 
 						}
 					else if(rdbtnCandidato.isSelected()) {
 						Candidato auxUsuario = new Candidato(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), Integer.parseInt(spnSalarioMin.getValue().toString()), rdbtnViajar.isSelected(), rdbtnVehiculo.isSelected());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como candidato exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
 					else if(rdbtnAdminstrador.isSelected()) {
 						Administrador auxUsuario = new Administrador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como adminsitrador exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					dispose();

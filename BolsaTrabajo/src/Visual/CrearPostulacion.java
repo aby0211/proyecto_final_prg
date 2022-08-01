@@ -363,6 +363,7 @@ public class CrearPostulacion extends JDialog {
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
@@ -371,6 +372,7 @@ public class CrearPostulacion extends JDialog {
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
@@ -380,6 +382,7 @@ public class CrearPostulacion extends JDialog {
 						BolsaDeTrabajo.getInstance().getMisSolicitudes().add(auxSol);
 						user.getMisPostulaciones().add(auxSol);
 						BolsaDeTrabajo.getInstance().aumentarCodSol();
+						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "La postulación se ha creado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					dispose();
