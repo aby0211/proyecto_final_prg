@@ -15,12 +15,23 @@ public class BolsaDeTrabajo implements Serializable{
 	private int idSolicitud;
 	private static BolsaDeTrabajo bolsa = null;
 	private static final long serialVersionUID = -6634036610616475881L;
-	private int cantPersonasEmpleadas;
+	private int cantTecnicosE;
+	private int cantUniversitariosE;
+	private int cantObrerosE;
+	private int hombresE;
+	private int mujeresE;
+	private int otrosE;
 	public BolsaDeTrabajo() {
 		super();
 		this.misUsuarios = new ArrayList<Usuario>();
 		this.misSolicitudes = new ArrayList<Solicitud>();
 		this.idSolicitud=1;
+		this.cantTecnicosE=0;
+		this.cantUniversitariosE=0;
+		this.cantObrerosE=0;
+		this.hombresE=0;
+		this.mujeresE=0;
+		this.otrosE=0;
 	}
 	
 	public static BolsaDeTrabajo getInstance(){
@@ -36,12 +47,53 @@ public class BolsaDeTrabajo implements Serializable{
 		return misUsuarios;
 	}
 
-	public int getCantPersonasEmpleadas() {
-		return cantPersonasEmpleadas;
+	public int getHombresE() {
+		return hombresE;
 	}
 	
-	public void aumentarCantPersonasEmpleadas() {
-		cantPersonasEmpleadas++;
+	public int getOtrosE() {
+		return otrosE;
+	}
+	
+	public void aumentarHombresE() {
+		hombresE++;
+	}
+	
+	public void aumentarMujeresE() {
+		mujeresE++;
+	}
+	
+	public void aumentarOtrosE() {
+		otrosE++;
+	}
+	
+
+	public int getMujeresE() {
+		return mujeresE;
+	}
+
+	public int getCantUniversitariosE() {
+		return cantUniversitariosE;
+	}
+	
+	public void aumentarCantUniversitariosE() {
+		cantUniversitariosE++;
+	}
+
+	public int getCantTecnicosE() {
+		return cantTecnicosE;
+	}
+
+	public void aumentarCantTecnicosE() {
+		cantTecnicosE++;
+	}
+	
+	public void aumentarCantObrerosE() {
+		cantObrerosE++;
+	}
+	
+	public int getCantObrerosE() {
+		return cantObrerosE;
 	}
 
 	public int getIdSolicitud() {
@@ -223,10 +275,32 @@ public class BolsaDeTrabajo implements Serializable{
 	}
 	
 	//Finalizar contratacion
+	
+	public void aumerCantEPorTipo(Postulacion post) {
+		if(post instanceof Universitario) {
+			aumentarCantUniversitariosE();
+		}else if(post instanceof Tecnico) {
+			aumentarCantTecnicosE();
+		}else if(post instanceof Obrero) {
+			aumentarCantObrerosE();
+		}
+	}
+	
+	public void aumentarCantEPorSexo(Postulacion post) {
+		if(post.getMiCandidato().getSexo().equalsIgnoreCase("Hombre")) {
+			aumentarHombresE();
+		}else if(post.getMiCandidato().getSexo().equalsIgnoreCase("Mujer")) {
+			aumentarMujeresE();
+		}else if(post.getMiCandidato().getSexo().equalsIgnoreCase("Otro")) {
+			aumentarOtrosE();
+		}
+	}
+	
 	public void confirmarContratacion(Oferta oferta,Postulacion post) {
 		oferta.getMiCentro().getMisCandidatos().add(post.getMiCandidato());
 		oferta.getMisPostulaciones().remove(post);
-		aumentarCantPersonasEmpleadas();
+		aumerCantEPorTipo(post);
+		aumentarCantEPorSexo(post);
 		oferta.disminuirCantVacantes();
 		post.getMiCandidato().setEmpleado(true);
 		buscarCandidatoByPostulacion(post.getCodigo()).setEmpleado(true);
@@ -251,6 +325,7 @@ public class BolsaDeTrabajo implements Serializable{
 		int j;
 		int porcientoMayor=0;
 		int porciento=0;
+		boolean encontrado=false;
 		Postulacion auxPost=null;
 		for(j=0;oferta.getCantVacantes()>j;j++) {
 			for(i=0;BolsaDeTrabajo.getInstance().getMisSolicitudes().size()>i;i++) {
@@ -281,11 +356,85 @@ public class BolsaDeTrabajo implements Serializable{
 								
 								}
 							}	
-						}
-						
-							
+						}	
 					}
+					
+					if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)instanceof Tecnico) {
+						if(BolsaDeTrabajo.getInstance().buscarPostulacionEnOferta(oferta, BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCodigo())==null) {
+							if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getEstado().equalsIgnoreCase("Enviada")){
+								
+								if(oferta.getCategoriaLaboral().equalsIgnoreCase(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCategoriaLaboral())) {
+									porciento+=20;
+								}
+								
+								if(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getMiCandidato().isVehiculoPropio()) {
+									porciento+=10;
+								}
+								
+								if(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getMiCandidato().isViajarDisp()) {
+									porciento+=10;
+								}
+								
+								if(oferta.getProvincia().equalsIgnoreCase(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getProvincia())) {
+									porciento+=5;
+								}
+								if(oferta.getAnnosExperiencia()>=(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getAnnosExp())) {
+									porciento+=5;
+								}
+								if(oferta.getSalario()<(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getSalarioMinimo())) {
+									porciento+=20;
+								}
+								if(oferta.getHabilidadRequerida().equalsIgnoreCase(((Tecnico)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getAreaTecnica())){
+									porciento+=30;
+								}
+								if(porciento>porcientoMayor) {
+									porcientoMayor=porciento;
+									auxPost=(Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i);
+									porciento=0;
+								
+								}
+							}	
+						}	
+					}
+					
+					if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)instanceof Obrero) {
+						if(BolsaDeTrabajo.getInstance().buscarPostulacionEnOferta(oferta, BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCodigo())==null) {
+							if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getEstado().equalsIgnoreCase("Enviada")){
+								
+								if(oferta.getCategoriaLaboral().equalsIgnoreCase(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getCategoriaLaboral())) {
+									porciento+=30;
+								}
+								if(oferta.getProvincia().equalsIgnoreCase(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i).getProvincia())) {
+									porciento+=10;
+								}
+								if(oferta.getAnnosExperiencia()>=(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getAnnosExp())) {
+									porciento+=10;
+								}
+								if(oferta.getSalario()<(((Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getSalarioMinimo())) {
+									porciento+=20;
+								}
+								int k = 0;
+								while(encontrado!=true&&(((Obrero)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getOficio().size())>k) {
+									if(((Obrero)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)).getOficio().get(k).equalsIgnoreCase(oferta.getHabilidadRequerida())) {
+										porciento+=30;
+										encontrado=true;
+									}
+								}
+								encontrado=false;
+								
+								if(porciento>porcientoMayor) {
+									porcientoMayor=porciento;
+									auxPost=(Postulacion)BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i);
+									porciento=0;
+								
+								}
+							}	
+						}	
+					}
+					
+					
 				}
+				
 			}
 			if(porcientoMayor>=oferta.getPorcientoMatch()) {
 				oferta.getMisPostulaciones().add(auxPost);

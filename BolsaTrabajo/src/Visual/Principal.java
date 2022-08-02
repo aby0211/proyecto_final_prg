@@ -88,8 +88,15 @@ public class Principal extends JFrame {
 		JMenuItem btnCrearPost = new JMenuItem("Crear postulacion");
 		btnCrearPost.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CrearPostulacion list=new CrearPostulacion(((Candidato)user));
-				list.setVisible(true);
+				if(((Candidato)user).isEmpleado()) {
+					JOptionPane.showMessageDialog(null, "No puede crear más postulaciones ya que actualmente esta empleado", "Información", JOptionPane.INFORMATION_MESSAGE);
+					dispose();
+
+				}else {
+					CrearPostulacion list=new CrearPostulacion(((Candidato)user));
+					list.setVisible(true);
+				}
+				
 			}
 		});
 		btnCandadito.add(btnCrearPost);
@@ -140,9 +147,21 @@ public class Principal extends JFrame {
 		menuBar.add(btnReporte);
 		
 		JMenuItem btnReporte1 = new JMenuItem("Reporte 1");
+		btnReporte1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Reporte1 list = new Reporte1();
+				list.setVisible(true);
+			}
+		});
 		btnReporte.add(btnReporte1);
 		
 		JMenuItem btnReporte2 = new JMenuItem("Reporte 2");
+		btnReporte2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Reporte2 list = new Reporte2();
+				list.setVisible(true);
+			}
+		});
 		btnReporte.add(btnReporte2);
 		
 		JMenuItem btnReporte3 = new JMenuItem("Reporte 3");
