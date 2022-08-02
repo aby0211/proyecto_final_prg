@@ -55,7 +55,7 @@ public class ListaSolicitudes extends JDialog {
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
-		JButton btnEliminarOferta = new JButton("Eliminar oferta");
+		JButton btnEliminarOferta = new JButton("Eliminar solicitud");
 		{
 			JPanel panel = new JPanel();
 			panel.setBorder(new TitledBorder(null, "", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -92,18 +92,21 @@ public class ListaSolicitudes extends JDialog {
 
 			btnEliminarOferta.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la solicitud con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
-					if(option == JOptionPane.YES_OPTION){
-						BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(selected.getCodigo()).setEstado("Eliminada");
-						BolsaDeTrabajo.getInstance().eliminarSolicitudGlobal(selected.getCodigo());
-						BolsaDeTrabajo.getInstance().guardarBolsa();
-						loadTable();
+					if(selected.getEstado().equalsIgnoreCase("Eliminada")) {
+						int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar la solicitud con id: "+selected.getCodigo() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
+						if(option == JOptionPane.YES_OPTION){
+							BolsaDeTrabajo.getInstance().eliminarSolicitudGlobal(selected.getCodigo());
+							BolsaDeTrabajo.getInstance().guardarBolsa();
+							loadTable();
+						}
+					}else {
+						JOptionPane.showMessageDialog(null, "Solo se puede eliminar una solicitud que haya sido eliminada anteriormente por el usuario", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 				}
 			});
 			
 			btnEliminarOferta.setEnabled(false);
-			btnEliminarOferta.setBounds(651, 385, 124, 23);
+			btnEliminarOferta.setBounds(639, 385, 136, 23);
 			panel.add(btnEliminarOferta);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
@@ -112,7 +115,7 @@ public class ListaSolicitudes extends JDialog {
 						list.setVisible(true);	
 					}
 					if(selected instanceof Postulacion) {
-						ResumenPostulacion list = new ResumenPostulacion(null,(Postulacion)selected,1);
+						ResumenPostulacion list = new ResumenPostulacion(null,(Postulacion)selected,0);
 						list.setVisible(true);
 					}
 
@@ -121,7 +124,7 @@ public class ListaSolicitudes extends JDialog {
 			
 			
 			btnVerDetalles.setEnabled(false);
-			btnVerDetalles.setBounds(531, 385, 110, 23);
+			btnVerDetalles.setBounds(519, 384, 110, 23);
 			panel.add(btnVerDetalles);
 		}
 		loadTable();

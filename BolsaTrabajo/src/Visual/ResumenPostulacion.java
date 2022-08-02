@@ -38,6 +38,7 @@ import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class ResumenPostulacion extends JDialog {
 
@@ -66,10 +67,9 @@ public class ResumenPostulacion extends JDialog {
 	 */
 	public ResumenPostulacion(Oferta oferta,Postulacion post, int modo) {
 		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
-		setResizable(false);
 		setTitle("Resumen de candidato");
 		setModal(true);
-		setBounds(100, 100, 550, 486);
+		setBounds(100, 100, 550, 539);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -258,18 +258,52 @@ public class ResumenPostulacion extends JDialog {
 				btnFinalizarContratacion.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						BolsaDeTrabajo.getInstance().confirmarContratacion(oferta, post);
+						if(oferta.getCantVacantes()==oferta.getMiCentro().getMisCandidatos().size()) {
+							BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(oferta.getCodigo()).setEstado("Completada");
+						}
+						
 						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "La contratación se ha realizado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnFinalizarContratacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
-				btnFinalizarContratacion.setBounds(354, 396, 167, 36);
+				btnFinalizarContratacion.setBounds(354, 443, 167, 36);
 				panel.add(btnFinalizarContratacion);
+				JLabel lblNewLabel = new JLabel("Completada");
+				JPanel panel_1 = new JPanel();
+				panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
+				panel_1.setBackground(new Color(127, 255, 0));
+				panel_1.setBounds(10, 396, 511, 36);
+				lblNewLabel.setText(post.getEstado());
+				if(post.getEstado().equalsIgnoreCase("Completada")) {
+					panel_1.setBackground(Color.GREEN);
+					
+				}else if(post.getEstado().equalsIgnoreCase("Enviada")) {
+					panel_1.setBackground(Color.YELLOW);
+				
+				}else if(post.getEstado().equalsIgnoreCase("Eliminada")) {
+					panel_1.setBackground(Color.RED);
+					
+				}else if(post.getEstado().equalsIgnoreCase("Expirada")) {
+					panel_1.setBackground(Color.RED);
+			
+				}
+				
+				
+				panel.add(panel_1);
+				panel_1.setLayout(null);
+				{
+					
+					lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+					lblNewLabel.setBounds(208, 5, 165, 25);
+					panel_1.add(lblNewLabel);
+					
+				}
 				if(modo==1) {
 					btnFinalizarContratacion.setVisible(true);
-					setBounds(100, 100, 550, 486);
+					setBounds(100, 100, 550, 539);
 				}else if(modo==0){
-					setBounds(100, 100, 550, 460);
+					setBounds(100, 100, 550, 492);
 					btnFinalizarContratacion.setVisible(false);
 				}
 			}
@@ -287,5 +321,4 @@ public class ResumenPostulacion extends JDialog {
 			model.addRow(row);
 		}
 	}
-	
 }

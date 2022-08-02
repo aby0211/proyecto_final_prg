@@ -1,6 +1,7 @@
 package Visual;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -46,6 +47,7 @@ public class DetallesOferta extends JDialog {
 	private DefaultTableModel model;
 	private Object row[];
 	private Postulacion selected=null;
+	private JTextField txtEstado;
 
 	/**
 	 * Launch the application.
@@ -58,7 +60,7 @@ public class DetallesOferta extends JDialog {
 		
 		setTitle("Detalles de oferta");
 		setModal(true);
-		setBounds(100, 100, 780, 461);
+		setBounds(100, 100, 780, 506);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -69,98 +71,98 @@ public class DetallesOferta extends JDialog {
 			panel.setLayout(null);
 			
 			JLabel label = new JLabel("Tipo de contrato");
-			label.setBounds(258, 133, 122, 14);
+			label.setBounds(258, 194, 122, 14);
 			panel.add(label);
 			
 			JLabel label_1 = new JLabel("Jornada");
-			label_1.setBounds(10, 133, 122, 14);
+			label_1.setBounds(10, 194, 122, 14);
 			panel.add(label_1);
 			
 			JLabel label_2 = new JLabel("Salario");
-			label_2.setBounds(258, 72, 122, 14);
+			label_2.setBounds(258, 133, 122, 14);
 			panel.add(label_2);
 			
 			JLabel label_3 = new JLabel("Periodo de pago");
-			label_3.setBounds(506, 72, 122, 14);
+			label_3.setBounds(506, 133, 122, 14);
 			panel.add(label_3);
 			
 			JLabel label_4 = new JLabel("Provincia");
-			label_4.setBounds(10, 72, 122, 14);
+			label_4.setBounds(10, 133, 122, 14);
 			panel.add(label_4);
 			
 			JLabel lblVacantesDisponibles = new JLabel("Vacantes disponibles:");
-			lblVacantesDisponibles.setBounds(506, 41, 148, 14);
+			lblVacantesDisponibles.setBounds(506, 102, 148, 14);
 			panel.add(lblVacantesDisponibles);
 			
 			txtNombreEmpresa = new JTextField();
 			txtNombreEmpresa.setEditable(false);
 			txtNombreEmpresa.setColumns(10);
-			txtNombreEmpresa.setBounds(258, 36, 238, 25);
+			txtNombreEmpresa.setBounds(258, 97, 238, 25);
 			panel.add(txtNombreEmpresa);
 			
 			JLabel label_6 = new JLabel("Nombre de la empresa ");
-			label_6.setBounds(258, 11, 139, 14);
+			label_6.setBounds(258, 72, 139, 14);
 			panel.add(label_6);
 			
 			JLabel label_7 = new JLabel("Oferta laboral");
-			label_7.setBounds(10, 11, 122, 14);
+			label_7.setBounds(10, 72, 122, 14);
 			panel.add(label_7);
 			
 			txtOfertaLab = new JTextField();
 			txtOfertaLab.setEditable(false);
 			txtOfertaLab.setColumns(10);
-			txtOfertaLab.setBounds(10, 36, 238, 25);
+			txtOfertaLab.setBounds(10, 97, 238, 25);
 			panel.add(txtOfertaLab);
 			
 			txtFechaVencimiento = new JTextField();
 			txtFechaVencimiento.setEditable(false);
 			txtFechaVencimiento.setColumns(10);
-			txtFechaVencimiento.setBounds(506, 158, 238, 25);
+			txtFechaVencimiento.setBounds(506, 219, 238, 25);
 			panel.add(txtFechaVencimiento);
 			
 			JLabel label_8 = new JLabel("Fecha de vencimiento");
-			label_8.setBounds(506, 133, 122, 14);
+			label_8.setBounds(506, 194, 122, 14);
 			panel.add(label_8);
 			
 			txtCantVacantes = new JTextField();
 			txtCantVacantes.setEditable(false);
 			txtCantVacantes.setColumns(10);
-			txtCantVacantes.setBounds(664, 36, 80, 25);
+			txtCantVacantes.setBounds(664, 97, 80, 25);
 			panel.add(txtCantVacantes);
 			
 			txtSalario = new JTextField();
 			txtSalario.setEditable(false);
 			txtSalario.setColumns(10);
-			txtSalario.setBounds(258, 97, 238, 25);
+			txtSalario.setBounds(258, 158, 238, 25);
 			panel.add(txtSalario);
 			
 			txtPeriodoPago = new JTextField();
 			txtPeriodoPago.setEditable(false);
 			txtPeriodoPago.setColumns(10);
-			txtPeriodoPago.setBounds(506, 97, 238, 25);
+			txtPeriodoPago.setBounds(506, 158, 238, 25);
 			panel.add(txtPeriodoPago);
 			
 			txtJornada = new JTextField();
 			txtJornada.setEditable(false);
 			txtJornada.setColumns(10);
-			txtJornada.setBounds(10, 158, 238, 25);
+			txtJornada.setBounds(10, 219, 238, 25);
 			panel.add(txtJornada);
 			
 			txtTipoContrato = new JTextField();
 			txtTipoContrato.setEditable(false);
 			txtTipoContrato.setColumns(10);
-			txtTipoContrato.setBounds(258, 158, 238, 25);
+			txtTipoContrato.setBounds(258, 219, 238, 25);
 			panel.add(txtTipoContrato);
 			
 			txtProvincia = new JTextField();
 			txtProvincia.setEditable(false);
 			txtProvincia.setColumns(10);
-			txtProvincia.setBounds(10, 97, 238, 25);
+			txtProvincia.setBounds(10, 158, 238, 25);
 			panel.add(txtProvincia);
 			
 			JPanel panel_1 = new JPanel();
 			panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			panel_1.setBounds(10, 211, 734, 32);
+			panel_1.setBounds(10, 255, 734, 32);
 			panel.add(panel_1);
 			
 			JLabel lblCandidatoQueMejor = new JLabel("Candidatos que mejor se adaptan a la oferta");
@@ -168,7 +170,7 @@ public class DetallesOferta extends JDialog {
 			panel_1.add(lblCandidatoQueMejor);
 			
 			JPanel panel_2 = new JPanel();
-			panel_2.setBounds(10, 254, 734, 103);
+			panel_2.setBounds(10, 298, 734, 103);
 			panel.add(panel_2);
 			panel_2.setLayout(new BorderLayout(0, 0));
 			JButton btnVerCandidato = new JButton("Ver candidato");
@@ -202,7 +204,7 @@ public class DetallesOferta extends JDialog {
 			if(oferta.getEstado().equalsIgnoreCase("Expirada")) {
 				btnVerCandidato.setEnabled(false);
 			}
-			btnVerCandidato.setBounds(565, 368, 179, 33);
+			btnVerCandidato.setBounds(565, 412, 179, 33);
 			panel.add(btnVerCandidato);
 			
 			txtOfertaLab.setText(oferta.getOfertaLaboral());
@@ -215,7 +217,37 @@ public class DetallesOferta extends JDialog {
 			txtTipoContrato.setText(oferta.getTipoContrato());
 			txtFechaVencimiento.setText(oferta.getFechaVencimiento().toString());
 			
-			loadTable(oferta);
+			txtEstado = new JTextField();
+			txtEstado.setText((String) null);
+			txtEstado.setEditable(false);
+			txtEstado.setColumns(10);
+			txtEstado.setBounds(10, 36, 238, 25);
+			txtEstado.setText(oferta.getEstado());
+			if(oferta.getEstado().equalsIgnoreCase("Completada")) {
+				txtEstado.setBackground(Color.GREEN);
+			}
+			if(oferta.getEstado().equalsIgnoreCase("Disponible")) {
+				txtEstado.setBackground(Color.yellow);
+			}
+			if(oferta.getEstado().equalsIgnoreCase("Eliminada")) {
+				txtEstado.setBackground(Color.RED);
+			}
+			if(oferta.getEstado().equalsIgnoreCase("Expirada")) {
+				txtEstado.setBackground(Color.RED);
+			}
+			
+			
+			
+			
+			panel.add(txtEstado);
+			
+			JLabel lblEstadoDeLa = new JLabel("Estado de la oferta:");
+			lblEstadoDeLa.setBounds(10, 11, 122, 14);
+			panel.add(lblEstadoDeLa);
+			if(oferta.getEstado().equalsIgnoreCase("Disponible")) {
+				loadTable(oferta);	
+			}
+			
 			btnVerCandidato.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					ResumenPostulacion list = new ResumenPostulacion(oferta,selected,1);

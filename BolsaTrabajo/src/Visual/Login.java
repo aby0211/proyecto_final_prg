@@ -22,6 +22,7 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JSeparator;
 
 public class Login extends JDialog {
 
@@ -121,6 +122,10 @@ public class Login extends JDialog {
 			panel.add(imageLogin);
 			Image img = new ImageIcon(this.getClass().getResource("/Untitled-1.png")).getImage();
 			imageLogin.setIcon(new ImageIcon(img));
+			
+			JSeparator separator = new JSeparator();
+			separator.setBounds(10, 72, 313, 335);
+			panel.add(separator);
 			BolsaDeTrabajo.getInstance().cargarBolsa();
 		}
 	}

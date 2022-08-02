@@ -368,7 +368,7 @@ public class Registrar extends JDialog {
 			
 			
 			lblCategoriaLaboral.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblCategoriaLaboral.setBounds(10, 71, 108, 14);
+			lblCategoriaLaboral.setBounds(10, 71, 205, 14);
 			panel_2.add(lblCategoriaLaboral);
 			
 ;

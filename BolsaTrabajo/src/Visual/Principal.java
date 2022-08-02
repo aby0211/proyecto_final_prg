@@ -90,7 +90,6 @@ public class Principal extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if(((Candidato)user).isEmpleado()) {
 					JOptionPane.showMessageDialog(null, "No puede crear más postulaciones ya que actualmente esta empleado", "Información", JOptionPane.INFORMATION_MESSAGE);
-					dispose();
 
 				}else {
 					CrearPostulacion list=new CrearPostulacion(((Candidato)user));
