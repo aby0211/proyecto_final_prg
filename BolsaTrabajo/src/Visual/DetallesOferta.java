@@ -56,10 +56,10 @@ public class DetallesOferta extends JDialog {
 	 * Create the dialog.
 	 */
 	public DetallesOferta(Oferta oferta) {
+		setResizable(false);
 		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		
 		setTitle("Detalles de oferta");
-		setModal(true);
 		setBounds(100, 100, 780, 506);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -244,6 +244,8 @@ public class DetallesOferta extends JDialog {
 			JLabel lblEstadoDeLa = new JLabel("Estado de la oferta:");
 			lblEstadoDeLa.setBounds(10, 11, 122, 14);
 			panel.add(lblEstadoDeLa);
+			
+
 			if(oferta.getEstado().equalsIgnoreCase("Disponible")) {
 				loadTable(oferta);	
 			}
@@ -262,10 +264,7 @@ public class DetallesOferta extends JDialog {
 	private void loadTable(Oferta oferta) {
 		model.setRowCount(0);
 		model.setColumnCount(5);
-		if(oferta.getMisPostulaciones().size()<oferta.getCantVacantes()) {
-			BolsaDeTrabajo.getInstance().algoritmoBuscarMejorCandidato(oferta);
-		}
-		
+		BolsaDeTrabajo.getInstance().algoritmoBuscarMejorCandidato(oferta);
 		row = new Object[model.getColumnCount()];
 		for (int i = 0; i < oferta.getMisPostulaciones().size(); i++) {
 			

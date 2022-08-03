@@ -66,9 +66,9 @@ public class ResumenPostulacion extends JDialog {
 	 * Create the dialog.
 	 */
 	public ResumenPostulacion(Oferta oferta,Postulacion post, int modo) {
+		setResizable(false);
 		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		setTitle("Resumen de candidato");
-		setModal(true);
 		setBounds(100, 100, 550, 539);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -258,8 +258,9 @@ public class ResumenPostulacion extends JDialog {
 				btnFinalizarContratacion.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						BolsaDeTrabajo.getInstance().confirmarContratacion(oferta, post);
-						if(oferta.getCantVacantes()==oferta.getMiCentro().getMisCandidatos().size()) {
+						if(oferta.getCantVacantes()==0) {
 							BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(oferta.getCodigo()).setEstado("Completada");
+							oferta.setEstado("Completada");
 						}
 						
 						BolsaDeTrabajo.getInstance().guardarBolsa();

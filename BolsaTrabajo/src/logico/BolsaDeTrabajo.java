@@ -419,6 +419,7 @@ public class BolsaDeTrabajo implements Serializable{
 										porciento+=30;
 										encontrado=true;
 									}
+									k++;
 								}
 								encontrado=false;
 								
