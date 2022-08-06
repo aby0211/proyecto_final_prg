@@ -2,6 +2,7 @@ package Visual;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -36,6 +37,7 @@ public class Reporte1 extends JDialog {
 	 */
 	public Reporte1() {
 		setTitle("Reporte 1");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/report.png")));
 		setBounds(100, 100, 450, 239);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.WHITE);

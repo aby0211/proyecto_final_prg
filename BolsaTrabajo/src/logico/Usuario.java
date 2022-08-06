@@ -1,6 +1,7 @@
 package logico;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public abstract class Usuario implements Serializable{
 
@@ -13,9 +14,10 @@ public abstract class Usuario implements Serializable{
 	protected String telefono;
 	protected String username;
 	protected String password;
+	protected Date fechaNacimiento;
 	
 	public Usuario(String nombre,String cedula, String sexo, String provincia, String direccion, String telefono,
-			String username, String password) {
+			String username, String password, Date fechaNacimiento) {
 		super();
 		this.nombre = nombre;
 		this.sexo = sexo;
@@ -25,6 +27,7 @@ public abstract class Usuario implements Serializable{
 		this.cedula=cedula;
 		this.username = username;
 		this.password = password;
+		this.fechaNacimiento=fechaNacimiento;
 	}
 	public String getNombre() {
 		return nombre;
@@ -52,6 +55,9 @@ public abstract class Usuario implements Serializable{
 	}
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
+	}
+	public Date getFechaNacimiento() {
+		return fechaNacimiento;
 	}
 	
 	

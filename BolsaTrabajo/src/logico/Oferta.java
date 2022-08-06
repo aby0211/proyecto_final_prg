@@ -17,10 +17,15 @@ public class Oferta extends Solicitud {
 	private int porcientoMatch;
 	private int annosExperiencia;
 	private String habilidadRequerida;
+	private int cantidadContratados=0;
+	private boolean viajar;
+	private boolean vehiculo;
 	
-	public Oferta(String codigo, String categoriaLaboral,String ofertaLaboral,String nivelEstudioReq, String provincia, Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato, String periodoCobro, CentroEmpleador miCentro, String estado,int porcientoMatch,int annosExperiencia,String habilidadRequerida) {
+	public Oferta(String codigo, String categoriaLaboral,String ofertaLaboral,String nivelEstudioReq, String provincia, Date fechaVencimiento, int cantVacantes, String jornada, int salario, String tipoContrato, String periodoCobro, CentroEmpleador miCentro, String estado,int porcientoMatch,int annosExperiencia,String habilidadRequerida,boolean viajar,boolean vehiculo) {
 		super(codigo, categoriaLaboral, provincia, fechaVencimiento,estado);
 		this.annosExperiencia=annosExperiencia;
+		this.viajar=viajar;
+		this.vehiculo=vehiculo;
 		this.habilidadRequerida=habilidadRequerida;
 		this.cantVacantes=cantVacantes;
 		this.ofertaLaboral=ofertaLaboral;
@@ -32,10 +37,18 @@ public class Oferta extends Solicitud {
 		this.miCentro=miCentro;
 		this.misPostulaciones=new ArrayList<Postulacion>();
 		this.porcientoMatch=porcientoMatch;
+		this.cantidadContratados=0;
 	}
 
 	public int getCantVacantes() {
 		return cantVacantes;
+	}
+	public void aumentarContratados(){
+		cantidadContratados++;
+	}
+
+	public int getCantidadContratados() {
+		return cantidadContratados;
 	}
 
 	public String getNivelEstudioReq() {
@@ -85,5 +98,14 @@ public class Oferta extends Solicitud {
 	public void disminuirCantVacantes() {
 		cantVacantes--;
 	}
+
+	public boolean isViajar() {
+		return viajar;
+	}
+
+	public boolean isVehiculo() {
+		return vehiculo;
+	}
+	
 
 }

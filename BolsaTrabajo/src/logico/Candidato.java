@@ -1,10 +1,11 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Candidato extends Usuario {
 
-	protected float rangoSalarioMinimo;
+
 	protected boolean viajarDisp;
 	protected boolean vehiculoPropio;
 	protected ArrayList<Postulacion> misPostulaciones;
@@ -12,18 +13,16 @@ public class Candidato extends Usuario {
 	
 	
 	public Candidato(String nombre,String cedula, String sexo, String provincia, String direccion, String telefono,
-			String username, String password, float rangoSalarioMinimo, boolean viajarDisp, boolean vehiculoPropio) {
-		super(nombre,cedula, sexo, provincia, direccion, telefono, username, password);
-		this.rangoSalarioMinimo=rangoSalarioMinimo;
+			String username, String password,  boolean viajarDisp, boolean vehiculoPropio, Date fechaNacimiento) {
+		super(nombre,cedula, sexo, provincia, direccion, telefono, username, password, fechaNacimiento);
+
 		this.viajarDisp=viajarDisp;
 		this.vehiculoPropio=vehiculoPropio;
 		this.misPostulaciones=new ArrayList<Postulacion>();
 		this.empleado=false;
 	}
 
-	public float getRangoSalarioMinimo() {
-		return rangoSalarioMinimo;
-	}
+	
 
 	public boolean isViajarDisp() {
 		return viajarDisp;

@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -58,6 +59,7 @@ public class ListaPostulaciones extends JDialog {
 		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/post.png")));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));

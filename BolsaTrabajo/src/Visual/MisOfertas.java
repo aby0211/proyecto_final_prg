@@ -3,6 +3,7 @@ package Visual;
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -50,6 +51,7 @@ public class MisOfertas extends JDialog {
 		setTitle("Mis ofertas");
 		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/oferta.png")));
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -133,7 +135,7 @@ public class MisOfertas extends JDialog {
 			}
 			row[2] = (((Oferta)centro.getMisOfertas().get(i)).getEstado());
 			row[3] = (((Oferta)centro.getMisOfertas().get(i)).getCantVacantes());
-			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getMisPostulaciones().size());
+			row[4] = (((Oferta)centro.getMisOfertas().get(i)).getCantidadContratados());
 			row[5] = (((Oferta)centro.getMisOfertas().get(i)).getFechaVencimiento());
 			model.addRow(row);
 		}

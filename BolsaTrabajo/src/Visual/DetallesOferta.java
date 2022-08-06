@@ -20,6 +20,7 @@ import logico.Postulacion;
 import logico.Solicitud;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -62,6 +63,8 @@ public class DetallesOferta extends JDialog {
 		setTitle("Detalles de oferta");
 		setBounds(100, 100, 780, 506);
 		getContentPane().setLayout(new BorderLayout());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/oferta.png")));
+
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -179,7 +182,7 @@ public class DetallesOferta extends JDialog {
 			scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 			panel_2.add(scrollPane, BorderLayout.CENTER);
 			{
-				String headers[] = {"Codigo", "Estado de postulacion","Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
+				String headers[] = {"Codigo", "Nombre","Sexo", "Nivel de estudio", "Categoria Laboral", "Fecha de vencimiento"};
 				model = new DefaultTableModel();
 				model.setColumnIdentifiers(headers);
 				table = new JTable();
@@ -244,9 +247,14 @@ public class DetallesOferta extends JDialog {
 			JLabel lblEstadoDeLa = new JLabel("Estado de la oferta:");
 			lblEstadoDeLa.setBounds(10, 11, 122, 14);
 			panel.add(lblEstadoDeLa);
-			
+			int k =0;
+			for(int i=0;BolsaDeTrabajo.getInstance().getMisSolicitudes().size()>i;i++) {
+				if(BolsaDeTrabajo.getInstance().getMisSolicitudes().get(i)instanceof Postulacion) {
+					k++;
+				}
+			}
 
-			if(oferta.getEstado().equalsIgnoreCase("Disponible")) {
+			if(oferta.getEstado().equalsIgnoreCase("Disponible")&&k>0) {
 				loadTable(oferta);	
 			}
 			
@@ -262,19 +270,20 @@ public class DetallesOferta extends JDialog {
 	}
 	
 	private void loadTable(Oferta oferta) {
+		
 		model.setRowCount(0);
-		model.setColumnCount(5);
-		BolsaDeTrabajo.getInstance().algoritmoBuscarMejorCandidato(oferta);
-		row = new Object[model.getColumnCount()];
-		for (int i = 0; i < oferta.getMisPostulaciones().size(); i++) {
-			
-			row[0] = oferta.getMisPostulaciones().get(i).getCodigo();
-			row[1] = oferta.getMisPostulaciones().get(i).getMiCandidato().getNombre();
-			row[2] = oferta.getMisPostulaciones().get(i).getMiCandidato().getSexo();
-			row[3] = oferta.getMisPostulaciones().get(i).getMiCandidato().getProvincia();
-			row[4] = oferta.getMisPostulaciones().get(i).getMiCandidato().getTelefono();
-			model.addRow(row);
-		}
-
+		model.setColumnCount(6);
+			BolsaDeTrabajo.getInstance().algoritmoBuscarMejorCandidato(oferta);
+			row = new Object[model.getColumnCount()];
+			for (int i = 0; i < oferta.getMisPostulaciones().size(); i++) {
+				
+				row[0] = oferta.getMisPostulaciones().get(i).getCodigo();
+				row[1] = oferta.getMisPostulaciones().get(i).getMiCandidato().getNombre();
+				row[2] = oferta.getMisPostulaciones().get(i).getMiCandidato().getSexo();
+				row[3] = oferta.getMisPostulaciones().get(i).getMiCandidato().getProvincia();
+				row[4] = oferta.getMisPostulaciones().get(i).getCategoriaLaboral();
+				row[5] = oferta.getMisPostulaciones().get(i).getFechaVencimiento().toString();
+				model.addRow(row);
+			}
 	}
 }

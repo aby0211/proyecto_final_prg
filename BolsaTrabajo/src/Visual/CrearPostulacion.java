@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -60,6 +61,8 @@ public class CrearPostulacion extends JDialog {
 	public CrearPostulacion(Candidato user) {
 		auxListaOficios=new ArrayList<String>();
 		setBounds(100, 100, 602, 801);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/post.png")));
+
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -187,6 +190,7 @@ public class CrearPostulacion extends JDialog {
 			panel_1.add(lblDireccion);
 			
 			txtFechaNacimiento = new JTextField();
+			txtFechaNacimiento.setText(user.getFechaNacimiento().toString());
 			txtFechaNacimiento.setEditable(false);
 			txtFechaNacimiento.setColumns(10);
 			txtFechaNacimiento.setBounds(10, 219, 260, 25);

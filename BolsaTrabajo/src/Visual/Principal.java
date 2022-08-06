@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import logico.Administrador;
+import logico.BolsaDeTrabajo;
 import logico.Candidato;
 import logico.CentroEmpleador;
 import logico.Usuario;
@@ -25,6 +26,7 @@ import javax.swing.JLabel;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.MouseMotionAdapter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -55,7 +57,7 @@ public class Principal extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 883, 600);
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/Maletin.png")));
 		
 		
 		JMenuBar menuBar = new JMenuBar();

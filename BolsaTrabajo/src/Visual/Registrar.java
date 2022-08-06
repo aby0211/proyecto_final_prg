@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Toolkit;
+
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -63,9 +65,10 @@ public class Registrar extends JDialog {
 	 */
 	public Registrar() {
 		setTitle("Registrarse");
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/userIcon.png")));
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 602, 567);
+		setBounds(100, 100, 602, 626);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -89,21 +92,19 @@ public class Registrar extends JDialog {
 			
 			JRadioButton rdbtnCandidato = new JRadioButton("Candidato");
 			JRadioButton rdbtnAdminstrador = new JRadioButton("Adminstrador");
-			JLabel lblRangoSalarioMinimo = new JLabel("Rango salario minimo:");
 			JLabel lblCategoriaLaboral = new JLabel("Categoria Laboral:");
 			JLabel lblVehiculoPropio = new JLabel("Disponibilidad para viajar:");
 			JLabel lblNombreEmpresa = new JLabel("Nombre de la empresa:");
 			txtRNC = new JTextField();
 			txtNombreEmpresa = new JTextField();
+			JSpinner spinner = new JSpinner();
+
 			JRadioButton rdbtnViajar = new JRadioButton("Disponible");
 			JRadioButton rdbtnVehiculo = new JRadioButton("Disponible");
 			JLabel lblRnc = new JLabel("RNC:");
 			JLabel lblVehiculo = new JLabel("Vehiculo Propio:");
 			JComboBox cbxCategoriaLaboral = new JComboBox();
-			JSpinner spnSalarioMin = new JSpinner();
 			JComboBox cbxGenero = new JComboBox();
-			lblRangoSalarioMinimo.setVisible(false);
-			spnSalarioMin.setVisible(false);
 			lblVehiculoPropio.setVisible(false);
 			rdbtnViajar.setVisible(false);
 			lblVehiculo.setVisible(false);
@@ -119,21 +120,21 @@ public class Registrar extends JDialog {
 				public void actionPerformed(ActionEvent e) {
 					if(rdbtnEmpresa.isSelected()) {
 						
-						CentroEmpleador auxUsuario = new CentroEmpleador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), txtNombreEmpresa.getText(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), txtRNC.getText(), cbxCategoriaLaboral.getSelectedItem().toString());
+						CentroEmpleador auxUsuario = new CentroEmpleador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), txtNombreEmpresa.getText(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), txtRNC.getText(), cbxCategoriaLaboral.getSelectedItem().toString(),(Date) spinner.getValue());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
 						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como empleador exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 
 						}
 					else if(rdbtnCandidato.isSelected()) {
-						Candidato auxUsuario = new Candidato(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), Integer.parseInt(spnSalarioMin.getValue().toString()), rdbtnViajar.isSelected(), rdbtnVehiculo.isSelected());
+						Candidato auxUsuario = new Candidato(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(), rdbtnViajar.isSelected(), rdbtnVehiculo.isSelected(),(Date) spinner.getValue());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
 						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como candidato exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 					
 					else if(rdbtnAdminstrador.isSelected()) {
-						Administrador auxUsuario = new Administrador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText());
+						Administrador auxUsuario = new Administrador(txtNombreA.getText(), txtCedula.getText(), cbxGenero.getSelectedItem().toString(), cbxProvincia.getSelectedItem().toString(), txtDireccion.getText(), txtTelefono.getText(), txtUsername.getText(), txtPassword.getText(),(Date) spinner.getValue());
 						BolsaDeTrabajo.getInstance().getMisUsuarios().add(auxUsuario);
 						BolsaDeTrabajo.getInstance().guardarBolsa();
 						JOptionPane.showMessageDialog(null, "Usuario registrado como adminsitrador exitosamente", "Información", JOptionPane.INFORMATION_MESSAGE);
@@ -156,15 +157,14 @@ public class Registrar extends JDialog {
 					rdbtnEmpresa.setSelected(false);
 					rdbtnCandidato.setSelected(true);
 					rdbtnAdminstrador.setSelected(false);
-					setBounds(100, 100, 602, 548);
-					btnConfirmarReg.setBounds(396, 456, 170, 31);
+					setBounds(100, 100, 602, 530);
+					btnConfirmarReg.setBounds(396, 440, 170, 31);
 					panel_2.setVisible(true);
-					lblRangoSalarioMinimo.setVisible(true);
-					spnSalarioMin.setVisible(true);
+
 					lblVehiculoPropio.setVisible(true);
 					rdbtnViajar.setVisible(true);
 					rdbtnVehiculo.setVisible(true);
-					panel_2.setBounds(10, 333, 556, 115);
+					panel_2.setBounds(10, 390, 556, 42);
 					lblVehiculo.setVisible(true);
 					txtNombreEmpresa.setVisible(false);
 					lblNombreEmpresa.setVisible(false);
@@ -179,18 +179,18 @@ public class Registrar extends JDialog {
 
 			rdbtnEmpresa.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					setBounds(100, 100, 602, 567);
+					setBounds(100, 100, 602, 626);
+
 					rdbtnCandidato.setSelected(false);
 					rdbtnEmpresa.setSelected(true);
 					rdbtnAdminstrador.setSelected(false);
-					btnConfirmarReg.setBounds(396, 476, 170, 31);
+					btnConfirmarReg.setBounds(396, 530, 170, 31);
 					panel_2.setVisible(true);
-					lblRangoSalarioMinimo.setVisible(false);
-					spnSalarioMin.setVisible(false);
+
 					lblVehiculoPropio.setVisible(false);
 					rdbtnViajar.setVisible(false);
 					lblVehiculo.setVisible(false);
-					panel_2.setBounds(10, 333, 556, 132);
+					panel_2.setBounds(10, 390, 556, 132);
 					txtNombreEmpresa.setVisible(true);
 					rdbtnVehiculo.setVisible(false);
 					lblNombreEmpresa.setVisible(true);
@@ -211,7 +211,7 @@ public class Registrar extends JDialog {
 			
 			
 			panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
-			panel_1.setBounds(10, 62, 556, 260);
+			panel_1.setBounds(10, 62, 556, 318);
 			panel.add(panel_1);
 			panel_1.setLayout(null);
 			
@@ -291,19 +291,28 @@ public class Registrar extends JDialog {
 			lblCdula.setBounds(280, 11, 169, 14);
 			panel_1.add(lblCdula);
 			
+			JLabel lblFechaDeNacimiento = new JLabel("Fecha de nacimiento:");
+			lblFechaDeNacimiento.setFont(new Font("Tahoma", Font.PLAIN, 12));
+			lblFechaDeNacimiento.setBounds(10, 253, 260, 14);
+			panel_1.add(lblFechaDeNacimiento);
 			
-			btnConfirmarReg.setBounds(396, 476, 170, 31);
+			spinner.setModel(new SpinnerDateModel(new Date(), null, new Date(), Calendar.DAY_OF_YEAR));
+			spinner.setBounds(10, 278, 260, 25);
+			panel_1.add(spinner);
+			
+			
+			btnConfirmarReg.setBounds(396, 534, 170, 31);
 			panel.add(btnConfirmarReg);
 			
 			
 			rdbtnAdminstrador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					setBounds(100, 100, 602, 420);
+					setBounds(100, 100, 602, 485);
 					rdbtnCandidato.setSelected(false);
 					rdbtnEmpresa.setSelected(false);
 					rdbtnAdminstrador.setSelected(true);
 					panel_2.setVisible(false);
-					btnConfirmarReg.setBounds(396, 333, 170, 31);
+					btnConfirmarReg.setBounds(396, 395, 170, 31);
 				}
 			});
 			rdbtnAdminstrador.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -311,19 +320,9 @@ public class Registrar extends JDialog {
 			panel.add(rdbtnAdminstrador);
 			
 			
-			panel_2.setBounds(10, 333, 556, 132);
+			panel_2.setBounds(10, 391, 556, 132);
 			panel.add(panel_2);
 			panel_2.setLayout(null);
-			
-			
-			lblRangoSalarioMinimo.setFont(new Font("Tahoma", Font.PLAIN, 12));
-			lblRangoSalarioMinimo.setBounds(10, 47, 197, 14);
-			panel_2.add(lblRangoSalarioMinimo);
-			
-			
-			spnSalarioMin.setModel(new SpinnerNumberModel(new Integer(12000), new Integer(12000), null, new Integer(1)));
-			spnSalarioMin.setBounds(10, 72, 257, 25);
-			panel_2.add(spnSalarioMin);
 			
 			
 			lblVehiculoPropio.setFont(new Font("Tahoma", Font.PLAIN, 12));
@@ -373,5 +372,8 @@ public class Registrar extends JDialog {
 			
 ;
 		}
+	}
+	public void clear() {
+		
 	}
 }

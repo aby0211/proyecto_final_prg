@@ -3,6 +3,8 @@ package Visual;
 import java.awt.BorderLayout;
 
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -10,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -35,6 +38,7 @@ import logico.Tecnico;
 import logico.Universitario;
 import logico.Usuario;
 
+
 import java.awt.Dialog.ModalExclusionType;
 
 public class ListaDeUsuarios extends JDialog {
@@ -54,6 +58,7 @@ public class ListaDeUsuarios extends JDialog {
 	public ListaDeUsuarios() {
 		setModal(true);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/userIcon.png")));
 		setTitle("Lista de usuarios");
 		setBounds(100, 100, 811, 468);
 		setLocationRelativeTo(null);
@@ -98,6 +103,7 @@ public class ListaDeUsuarios extends JDialog {
 			}
 			
 
+
 			btnEliminarUsuarios.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					int option = JOptionPane.showConfirmDialog(null, "Está seguro de eliminar el usuario con username: "+selected.getUsername() , "Confirmación",JOptionPane.YES_NO_OPTION,JOptionPane.QUESTION_MESSAGE);
@@ -119,8 +125,8 @@ public class ListaDeUsuarios extends JDialog {
 			panel.add(btnEliminarUsuarios);
 			btnVerDetalles.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-					//DetallesOferta list = new DetallesOferta(selected);
-					//list.setVisible(true);
+					DetalleUsuario list = new DetalleUsuario(selected);
+					list.setVisible(true);
 				}
 			});
 			

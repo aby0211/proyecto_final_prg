@@ -17,6 +17,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Label;
+import java.awt.Toolkit;
 
 import javax.swing.JTextField;
 import java.awt.Color;
@@ -50,6 +51,8 @@ public class Login extends JDialog {
 		setTitle("Bolsa de trabajo");
 		setBounds(100, 100, 816, 467);
 		getContentPane().setLayout(new BorderLayout());
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/login.png")));
+
 		contentPanel.setBackground(Color.WHITE);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);

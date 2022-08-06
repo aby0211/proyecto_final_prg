@@ -24,6 +24,7 @@ import logico.Tecnico;
 import logico.Universitario;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.Dialog.ModalExclusionType;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -67,10 +68,12 @@ public class ResumenPostulacion extends JDialog {
 	 */
 	public ResumenPostulacion(Oferta oferta,Postulacion post, int modo) {
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage(ListaDeUsuarios.class.getResource("/post.png")));
 		setModalExclusionType(ModalExclusionType.TOOLKIT_EXCLUDE);
 		setTitle("Resumen de candidato");
 		setBounds(100, 100, 550, 539);
 		getContentPane().setLayout(new BorderLayout());
+		
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
@@ -113,6 +116,7 @@ public class ResumenPostulacion extends JDialog {
 				}
 				{
 					txtFechaNacimiento = new JTextField();
+					txtFechaNacimiento.setText(post.getMiCandidato().getFechaNacimiento().toString());
 					txtFechaNacimiento.setEditable(false);
 					txtFechaNacimiento.setColumns(10);
 					txtFechaNacimiento.setBounds(10, 280, 238, 25);
@@ -220,6 +224,7 @@ public class ResumenPostulacion extends JDialog {
 				JPanel panel_2 = new JPanel();
 				panel_2.setBounds(258, 219, 238, 86);
 				panel_1.add(panel_2);
+				
 				panel_2.setLayout(new BorderLayout(0, 0));
 				{
 					JScrollPane scrollPane = new JScrollPane();
@@ -239,7 +244,7 @@ public class ResumenPostulacion extends JDialog {
 					}
 				}
 				
-				txtSalarioMin.setText(String.valueOf(post.getMiCandidato().getRangoSalarioMinimo()));
+				txtSalarioMin.setText(String.valueOf(post.getSalarioMinimo()));
 				//txtFechaNacimiento.setText();
 			}
 			{
@@ -253,25 +258,46 @@ public class ResumenPostulacion extends JDialog {
 					panel_1.add(label);
 				}
 			}
+			JLabel lblNewLabel = new JLabel("Completada");
+			JPanel panel_1 = new JPanel();
 			{
 				JButton btnFinalizarContratacion = new JButton("Finalizar contrataci\u00F3n");
 				btnFinalizarContratacion.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent arg0) {
 						BolsaDeTrabajo.getInstance().confirmarContratacion(oferta, post);
+						
+						BolsaDeTrabajo.getInstance().aumentarCantEPorSexo(post);
+						BolsaDeTrabajo.getInstance().aumerCantEPorTipo(post);
 						if(oferta.getCantVacantes()==0) {
 							BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(oferta.getCodigo()).setEstado("Completada");
 							oferta.setEstado("Completada");
+							((Oferta)BolsaDeTrabajo.getInstance().buscarSolicitudByCodigo(oferta.getCodigo())).aumentarContratados();
+							oferta.aumentarContratados();
+							
 						}
+						lblNewLabel.setText(post.getEstado());
+						if(post.getEstado().equalsIgnoreCase("Completada")) {
+							panel_1.setBackground(Color.GREEN);
+							
+						}else if(post.getEstado().equalsIgnoreCase("Enviada")) {
+							panel_1.setBackground(Color.YELLOW);
 						
+						}else if(post.getEstado().equalsIgnoreCase("Eliminada")) {
+							panel_1.setBackground(Color.RED);
+							
+						}else if(post.getEstado().equalsIgnoreCase("Expirada")) {
+							panel_1.setBackground(Color.RED);
+					
+						}
 						BolsaDeTrabajo.getInstance().guardarBolsa();
+					
 						JOptionPane.showMessageDialog(null, "La contratación se ha realizado exitosamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
 					}
 				});
 				btnFinalizarContratacion.setFont(new Font("Tahoma", Font.PLAIN, 13));
 				btnFinalizarContratacion.setBounds(354, 443, 167, 36);
 				panel.add(btnFinalizarContratacion);
-				JLabel lblNewLabel = new JLabel("Completada");
-				JPanel panel_1 = new JPanel();
+
 				panel_1.setBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null));
 				panel_1.setBackground(new Color(127, 255, 0));
 				panel_1.setBounds(10, 396, 511, 36);

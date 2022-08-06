@@ -1,6 +1,7 @@
 package logico;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CentroEmpleador extends Usuario{
 
@@ -11,8 +12,8 @@ public class CentroEmpleador extends Usuario{
 	private ArrayList<Candidato> misCandidatos;
 	
 	public CentroEmpleador(String nombre,String cedula, String sexo,String nombreEmpresa, String provincia, String direccion, String telefono,
-		 String username, String password, String rnc, String categoriaLaboral) {
-		super(nombre,cedula, sexo, provincia, direccion, telefono, username, password);
+		 String username, String password, String rnc, String categoriaLaboral, Date fechaNacimiento) {
+		super(nombre,cedula, sexo, provincia, direccion, telefono, username, password, fechaNacimiento);
 		this.rnc=rnc;
 		this.nombreEmpresa=nombreEmpresa;
 		this.categoriaLaboral=categoriaLaboral;
